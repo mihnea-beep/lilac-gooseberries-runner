@@ -33,6 +33,7 @@ class Scene
   string lavenderImage = "Assets/geralt/lavender_pixel.png";
   string drownerImage = "Assets/geralt/drowner.png";
   string gryphonImage = "Assets/geralt/gryphon0.png";
+  string signsImage = "Assets/geralt/Yrden.png";
 
 
 
@@ -46,6 +47,9 @@ class Scene
   vector<Player> characters;
   vector<Player> powerups;
   vector<Player> enemies;
+
+  //GUI
+  vector<Player> signs;
 
   string soundName = "Assets/geralt/ladder1.wav";
 	Mix_Chunk* sound;

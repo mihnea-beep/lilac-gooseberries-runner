@@ -254,7 +254,7 @@ void Player::setImage(string filename, SDL_Renderer* ren, int color_key) //color
 
     SDL_Surface* psurf = IMG_Load(filename.c_str());
 
-    SDL_SetColorKey(psurf, SDL_FALSE, SDL_MapRGB(psurf->format, 255, 128, 0xFF));
+    SDL_SetColorKey(psurf, SDL_FALSE, SDL_MapRGB(psurf->format, 0, 0, 0xFF));
 
     texture = SDL_CreateTextureFromSurface(ren, psurf);
 
