@@ -42,6 +42,7 @@ class Scene
   bool pickedUp = false;
   bool damageTaken = false;
   bool isMelee = false;
+  bool screenShake = false;
 
 
   Rect rectangle1;

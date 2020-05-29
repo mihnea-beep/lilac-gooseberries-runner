@@ -255,7 +255,8 @@ void Scene::update()
     for(int i = 0; i < enemies.size(); i++)
     {
         if(characters[0].isColliding(enemies[i]))
-        {
+        { 
+          screenShake = true;
           // if(characters[0].getY() - characters[0].getH() == enemies[i].getY())
           // if(speed < 0)
           if(jumpHeightSet)
