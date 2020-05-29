@@ -33,6 +33,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   characters.push_back(Player("Geralt", geraltImage, 100, 200, 84, 84, Renderer));
   powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
+  powerups.push_back(Player("Lavender2", lavenderImage2, 100, 200, 84, 84, Renderer));
+
   // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
   // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
   enemies.push_back(Player("drowner", drownerImage, 100, 100, 120, 100, Renderer));
@@ -56,8 +58,14 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   for(int i = 0; i < powerups.size(); i++)
   {
-    powerups[i].setImage(lavenderImage, Renderer);
+    if(powerups[i].getName() == "Lavender")
+      powerups[i].setImage(lavenderImage, Renderer);
+
+    if(powerups[i].getName() == "Lavender2")
+     powerups[i].setImage(lavenderImage2, Renderer);
+  
     powerups[i].setPos(-100, -100);
+
   }
 
   for(int i = 0; i < enemies.size(); i++)
@@ -74,9 +82,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   for(int i = 0; i < signs.size(); i++)
   {
     signs[i].setImage(signsImage, Renderer);
+  powerups[i].setPos(500, 200);
+
   }
 
-  powerups[0].setPos(500, 200);
 
 
 }
@@ -229,9 +238,9 @@ void Scene::update()
 
   int obstNo = 0;
 
-  //for(int i = 0; i < powerups.size(); i++)
+  for(int i = 0; i < powerups.size(); i++)
   {
-    if(characters[0].isColliding(powerups[0]))
+    if(characters[0].isColliding(powerups[i]))
       {
         pickedUp = true;
         cout << "Collected powerup!\n";
@@ -243,11 +252,11 @@ void Scene::update()
       }
       
 
-    if(powerups[0].getX() <= -100 || characters[0].isColliding(powerups[0]) ) // type
-      powerups[0].setPos(rand() % characters[0].getX() + 640 + 100, rand() % 480);
+    if(powerups[i].getX() <= -100 || characters[0].isColliding(powerups[i]) ) // type
+      powerups[i].setPos(rand() % characters[0].getX() + 640 + 100, rand() % 480);
     
 
-      powerups[0].setX(powerups[0].getX() - 3);
+      powerups[i].setX(powerups[i].getX() - 3);
 
   }
 
@@ -342,9 +351,9 @@ void Scene::render(SDL_Renderer* Renderer)
   for(int i = 0; i < enemies.size(); i++)
     draw(enemies[i], Renderer);
 
-  // for(int i = 0; i < powerups.size(); i++)
+  for(int i = 0; i < powerups.size(); i++)
 
-  draw(powerups[0], Renderer);
+  draw(powerups[i], Renderer);
   // cout << "Rectangle";
 
 
