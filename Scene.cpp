@@ -14,7 +14,16 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
 	Mix_AllocateChannels(4);
 
-	sound = Mix_LoadWAV(soundName.c_str());
+  soundNames.push_back("Assets/geralt/ladder1.wav");
+  soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
+  soundNames.push_back("Assets/geralt/witcher_levelup.wav");
+
+	sounds.push_back(Mix_LoadWAV(soundNames[0].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[1].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
+
+
+
 
   
 
@@ -197,6 +206,7 @@ void Scene::update()
     {
       jumpHeightSet = false;
       jumping = false;
+      // speed = 18;
     } 
   }
 
@@ -224,7 +234,12 @@ void Scene::update()
     if(characters[0].isColliding(powerups[0]))
       {
         pickedUp = true;
-        Mix_PlayChannel(-1, sound, 0);
+        cout << "Collected powerup!\n";
+        Mix_PlayChannel(-1, sounds[0], 0);
+        score++;
+
+        if(score % 10 == 0)
+          Mix_PlayChannel(-1, sounds[2], 0);
       }
       
 
@@ -236,11 +251,23 @@ void Scene::update()
 
   }
 
-
+  // cout << speed;
     for(int i = 0; i < enemies.size(); i++)
     {
         if(characters[0].isColliding(enemies[i]))
-        damageTaken = true;
+        {
+          // if(characters[0].getY() - characters[0].getH() == enemies[i].getY())
+          // if(speed < 0)
+          if(jumpHeightSet)
+            {
+              // jumping = true;
+              // jumpHeightSet = false;
+            }
+
+          damageTaken = true;
+          Mix_PlayChannel(-1, sounds[1], 0);
+          cout << "Ouch!" << endl;
+        }
 
       if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
         if(i % 2)

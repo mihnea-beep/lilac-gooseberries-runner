@@ -52,8 +52,12 @@ class Scene
   //GUI
   vector<Player> signs;
 
-  string soundName = "Assets/geralt/ladder1.wav";
-	Mix_Chunk* sound;
+  vector<string> soundNames; // = "Assets/geralt/ladder1.wav";
+	// Mix_Chunk* sound;
+
+  vector<Mix_Chunk*> sounds;
+
+  int score = 0; // temporary no GUI
 
   // int result;
 
