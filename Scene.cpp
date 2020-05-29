@@ -219,15 +219,25 @@ void Scene::update()
 
   }
 
-  
-    if(characters[0].isColliding(enemies[0]))
-      damageTaken = true;
 
-    if(enemies[0].getX() <= -100 || characters[0].isColliding(enemies[0]) ) // type
-      enemies[0].setPos(rand() % characters[0].getX() + 640 + 100, 480 - enemies[0].getH());
-    
+    for(int i = 0; i < enemies.size(); i++)
+    {
+        if(characters[0].isColliding(enemies[i]))
+        damageTaken = true;
 
-      enemies[0].setX(enemies[0].getX() - 3);
+      if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
+        if(i % 2)
+          enemies[i].setPos(rand() % characters[0].getX() + 640 + 100, 480 - enemies[i].getH());
+        else
+        {
+          enemies[i].setPos(rand() % characters[0].getX() + 1440 + 100, 480 - enemies[i].getH());
+        }
+        
+      
+
+        enemies[i].setX(enemies[i].getX() - 3);
+    }
+
 
   
 
@@ -265,7 +275,14 @@ void Scene::render(SDL_Renderer* Renderer)
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
 
   for(int i = 0; i < enemies.size(); i++)
-    animate(enemies[i], enemies[i].getFrames(), resPath + enemies[i].getName(), Renderer);
+    {
+      if(enemies[i].getName() == "gryphon")
+        animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
+
+      // if(enemies[i].getName() == "drowner")
+        // animate(enemies[i], 1, resPath + enemies[i].getName(), Renderer);
+
+    }
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 

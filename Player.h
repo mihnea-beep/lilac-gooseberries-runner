@@ -63,6 +63,7 @@ class Player
         void setW(int w);
 
         string getName();
+        // int getFrames();
 
 
         void setX(int dx);
