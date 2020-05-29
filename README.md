@@ -12,6 +12,8 @@ Assets: https://www.pixilart.com/pix-man
 **Screenshots**:
 
 ![In-game-shot](lilac_runner1.png)
+![In-game-shot-gryphon](lilac_runner2.png)
+
 
 **Instructions**: Press the spacebar to jump.
 
