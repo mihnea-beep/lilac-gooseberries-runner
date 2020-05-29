@@ -15,6 +15,6 @@ Assets: https://www.pixilart.com/pix-man
 ![In-game-shot-gryphon](lilac_runner2.png)
 
 
-**Instructions**: Press the spacebar to jump.
+**Instructions**: Press the spacebar to jump. Press 1, 2 to select a sign.
 
 **Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items). Avoid enemies by jumping over them. 
