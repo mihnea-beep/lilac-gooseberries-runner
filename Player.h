@@ -30,7 +30,6 @@ class Player
         int textureWidth;
         int textureHeight; // none?
 
-
         bool isActive;
 
         bool isAlive;
@@ -42,10 +41,6 @@ class Player
         SDL_Scancode keys[4];
         SDL_Rect cropRect;
         SDL_Texture* texture;
-
-
-
-
 
     public:
 
@@ -69,6 +64,8 @@ class Player
         void setX(int dx);
         void setY(int dy);
         void setPos(int dx, int dy);
+
+        void setName(string name);
 
         void setImage(string filename, SDL_Renderer* ren);
         void setImage(string filename, SDL_Renderer* ren, int color_key); //transparency

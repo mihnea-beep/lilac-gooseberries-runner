@@ -53,7 +53,7 @@ class Scene
   Rect rectangle1;
   vector<Player> characters;
   // vector<Player> powerups;
-  vector<Player> enemies;
+  // vector<Player> enemies;
 
   //GUI
   vector<Player> signs;
@@ -61,10 +61,12 @@ class Scene
 
   int powerupsNo;
   int signsNo;
+  int enemiesNo;
   
 
   Player* sign;
   Player* powerups;
+  Player* enemies;
 
   vector<string> soundNames; // = "Assets/geralt/ladder1.wav";
 	// Mix_Chunk* sound;
@@ -72,6 +74,7 @@ class Scene
   vector<Mix_Chunk*> sounds;
 
   int score = 0; // temporary no GUI
+  int HP = 100;
 
   // int result;
 

@@ -24,6 +24,11 @@ void Player::setLife(bool livingstatus)
     isAlive = livingstatus;
 }
 
+void Player::setName(string name)
+{
+    this->name = name;
+}
+
 void Player::live()
 {
     isAlive = true;

@@ -17,18 +17,25 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   soundNames.push_back("Assets/geralt/ladder1.wav");
   soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
   soundNames.push_back("Assets/geralt/witcher_levelup.wav");
+  soundNames.push_back("Assets/geralt/witcher-fck.wav");
 
 	sounds.push_back(Mix_LoadWAV(soundNames[0].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[1].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[3].c_str()));
+
 
   speed = 4;
 
   signsNo = 2;
   powerupsNo = 3;
+  enemiesNo = 2;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
+  enemies = new Player[enemiesNo];
+
+  // signs
 
   for(int i = 0; i < signsNo; i++)
   {
@@ -36,6 +43,11 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     sign[i].setW(84);
     sign[i].setPos(20, 20);
   }
+
+  sign[0].setImage(signsImage, Renderer);
+  sign[1].setImage(resPath + "Quen.png", Renderer);
+
+  // powerups
 
   for(int i = 0; i < powerupsNo; i++)
   {
@@ -45,26 +57,26 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   }
 
-    sign[0].setImage(signsImage, Renderer);
-    sign[1].setImage(resPath + "Quen.png", Renderer);
+  powerups[0].setImage(lavenderImage, Renderer);
+  powerups[1].setImage(lavenderImage2, Renderer);   
+  powerups[2].setImage(lavenderImage, Renderer);
 
-    powerups[0].setImage(lavenderImage, Renderer);
-    powerups[1].setImage(lavenderImage2, Renderer);
-    powerups[2].setImage(lavenderImage, Renderer);
+  for(int i = 0; i < enemiesNo; i++)
+  {
+  }
 
+  enemies[0].setH(100);
+  enemies[0].setW(100);
+  enemies[0].setPos(100, 100);
+  enemies[0].setImage(drownerImage, Renderer);
 
-
-
+  enemies[1].setH(120);
+  enemies[1].setW(100);
+  enemies[1].setPos(100, 100);
+  enemies[1].setImage(gryphonImage, Renderer);
+  enemies[1].setName("gryphon");
 
   characters.push_back(Player("Geralt", geraltImage, 100, 200, 84, 84, Renderer));
-  // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-
-  // powerups.push_back(Player("Lavender2", lavenderImage2, 100, 200, 84, 84, Renderer));
-  // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-  // powerups.push_back(Player("Lavender", lavenderImage2, 100, 200, 84, 84, Renderer));
-
-  // enemies.push_back(Player("drowner", drownerImage, 100, 100, 120, 100, Renderer));
-  enemies.push_back(Player("gryphon", gryphonImage, 100, 100, 120, 100, Renderer));
 
   characters[0].setPos(300, 480 - 84);
   // characters[0].setImage(geraltImage, Renderer);
@@ -87,10 +99,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   //   if(powerups[i].getName() == "Lavender2")
   //    powerups[i].setImage("Assets/geralt/lavender_pixel2.png", Renderer); // if replaced by lavenderImage2 or gryphonImage, it bugs out
-  //                                                                         // the bug has something to do with signs
+  //                                                                         // the bug has something to do with signs -- not sure? vectors
   // }
 
-  for(int i = 0; i < enemies.size(); i++)
+  for(int i = 0; i < enemiesNo; i++)
   {
     cout << enemies[i].getName() << endl;
     
@@ -169,10 +181,8 @@ void Scene::checkInput()
                 case SDLK_2:
 
                 selectedSign = 1;
-
                 // cout << signs[selectedSign].getName() << endl;
                 
-
                 break;
 
                 case SDLK_a:
@@ -266,9 +276,7 @@ void Scene::update()
     
   }
 
-  int obstNo = 0;
-
-  for(int i = 0; i < 3; i++)
+  for(int i = 0; i < powerupsNo; i++)
   {
     if(characters[0].isColliding(powerups[i]))
       {
@@ -276,6 +284,7 @@ void Scene::update()
         cout << "Collected powerup!\n";
         Mix_PlayChannel(-1, sounds[0], 0);
         score++;
+        cout << "Lilac: " << score << endl;
 
         if(score % 10 == 0)
           Mix_PlayChannel(-1, sounds[2], 0);
@@ -291,7 +300,7 @@ void Scene::update()
   }
 
   // cout << speed;
-    for(int i = 0; i < enemies.size(); i++)
+    for(int i = 0; i < enemiesNo; i++)
     {
         if(characters[0].isColliding(enemies[i]))
         { 
@@ -306,6 +315,13 @@ void Scene::update()
           damageTaken = true;
           Mix_PlayChannel(-1, sounds[1], 0);
           cout << "Ouch!" << endl;
+          HP --;
+          cout << "Health points: " << HP << endl;
+
+          if(HP % 10 == 0)
+          {
+            Mix_PlayChannel(-1, sounds[3], 0);
+          }
         }
 
       if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
@@ -314,21 +330,14 @@ void Scene::update()
         else
         {
           enemies[i].setPos(rand() % characters[0].getX() + 1440 + 100, 480 - enemies[i].getH());
-        }
-        
-      
+        }   
 
         enemies[i].setX(enemies[i].getX() - 3);
     }
 
 
-  
-
-  
-
   for(auto it = obstacles.begin(); it != obstacles.end(); it++)
   {
-    obstNo++;
 
     if((it->getX() + 105) <= 0)
     {
@@ -362,7 +371,7 @@ void Scene::render(SDL_Renderer* Renderer)
   for(int i = 0; i < characters.size(); i++)
     draw(characters[i], Renderer);
 
-  for(int i = 0; i < enemies.size(); i++)
+  for(int i = 0; i < enemiesNo; i++)
     draw(enemies[i], Renderer);
 
   for(int i = 0; i < powerupsNo; i++)
@@ -384,9 +393,7 @@ void Scene::render(SDL_Renderer* Renderer)
 
   isMelee = false;
 
-  //  draw(signs[0], Renderer);
-
-  for(int i = 0; i < enemies.size(); i++)
+  for(int i = 0; i < enemiesNo; i++)
     {
       if(enemies[i].getName() == "gryphon")
         animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
@@ -394,8 +401,6 @@ void Scene::render(SDL_Renderer* Renderer)
 
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
   
-  // sign.setImage(signsImage, Renderer);
-
   SDL_RenderPresent(Renderer);
 
 }
@@ -465,13 +470,11 @@ Scene::~Scene()
   for(int i = 0; i < characters.size(); i++)
     characters[i].Free();
 
-  for(int i = 0; i < enemies.size(); i++)
+  for(int i = 0; i < enemiesNo; i++)
     enemies[i].Free();
 
   for(int i = 0; i < powerupsNo; i++)
     powerups[i].Free();
-
-  
 
 }
 
