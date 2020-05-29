@@ -12,7 +12,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   rectangle1.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
-	Mix_AllocateChannels(2);
+	Mix_AllocateChannels(4);
 
   soundNames.push_back("Assets/geralt/ladder1.wav");
   soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
