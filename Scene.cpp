@@ -12,7 +12,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   rectangle1.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
-	Mix_AllocateChannels(4);
+	Mix_AllocateChannels(2);
 
   soundNames.push_back("Assets/geralt/ladder1.wav");
   soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
@@ -22,30 +22,52 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 	sounds.push_back(Mix_LoadWAV(soundNames[1].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
 
-
-
-
-  
-
   speed = 4;
 
-  signs.push_back(Player("yrden", signsImage, 20, 20, 84, 84, Renderer));
+  signsNo = 2;
+  powerupsNo = 3;
+
+  sign = new Player[signsNo];
+  powerups = new Player[powerupsNo];
+
+  for(int i = 0; i < signsNo; i++)
+  {
+    sign[i].setH(84);
+    sign[i].setW(84);
+    sign[i].setPos(20, 20);
+  }
+
+  for(int i = 0; i < powerupsNo; i++)
+  {
+    powerups[i].setH(84);
+    powerups[i].setW(84);
+    powerups[i].setPos(200, 200);
+
+  }
+
+    sign[0].setImage(signsImage, Renderer);
+    sign[1].setImage(resPath + "Quen.png", Renderer);
+
+    powerups[0].setImage(lavenderImage, Renderer);
+    powerups[1].setImage(lavenderImage2, Renderer);
+    powerups[2].setImage(lavenderImage, Renderer);
+
+
+
+
 
   characters.push_back(Player("Geralt", geraltImage, 100, 200, 84, 84, Renderer));
-  powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-  powerups.push_back(Player("Lavender2", lavenderImage2, 100, 200, 84, 84, Renderer));
+  // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
 
+  // powerups.push_back(Player("Lavender2", lavenderImage2, 100, 200, 84, 84, Renderer));
   // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-  // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-  enemies.push_back(Player("drowner", drownerImage, 100, 100, 120, 100, Renderer));
+  // powerups.push_back(Player("Lavender", lavenderImage2, 100, 200, 84, 84, Renderer));
+
+  // enemies.push_back(Player("drowner", drownerImage, 100, 100, 120, 100, Renderer));
   enemies.push_back(Player("gryphon", gryphonImage, 100, 100, 120, 100, Renderer));
 
-
-
-
-
   characters[0].setPos(300, 480 - 84);
-  characters[0].setImage(geraltImage, Renderer);
+  // characters[0].setImage(geraltImage, Renderer);
 
   if(characters[0].getTexture() == NULL) // doesn't print out anything
     cout << "AAAAAAA";
@@ -53,24 +75,25 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   for(int i = 0; i < 2; i++)
   {
-    obstacles.push_back(Rect(rand() % 640, 480 - 200, 80, 200));
+    obstacles.push_back(Rect(rand() % 640, 480 - 200, 80, 200)); 
   }
 
-  for(int i = 0; i < powerups.size(); i++)
-  {
-    if(powerups[i].getName() == "Lavender")
-      powerups[i].setImage(lavenderImage, Renderer);
+  // for(int i = 0; i < powerups.size(); i++)
+  // {
+  //   powerups[i].setPos(500, 200);
 
-    if(powerups[i].getName() == "Lavender2")
-     powerups[i].setImage(lavenderImage2, Renderer);
-  
-    powerups[i].setPos(-100, -100);
+  //   if(powerups[i].getName() == "Lavender")
+  //     powerups[i].setImage(lavenderImage, Renderer);
 
-  }
+  //   if(powerups[i].getName() == "Lavender2")
+  //    powerups[i].setImage("Assets/geralt/lavender_pixel2.png", Renderer); // if replaced by lavenderImage2 or gryphonImage, it bugs out
+  //                                                                         // the bug has something to do with signs
+  // }
 
   for(int i = 0; i < enemies.size(); i++)
   {
     cout << enemies[i].getName() << endl;
+    
      if(enemies[i].getName() == "drowner")
       enemies[i].setImage(drownerImage, Renderer);
     
@@ -78,15 +101,6 @@ void Scene::loadRes(SDL_Renderer* Renderer)
       enemies[i].setImage(gryphonImage, Renderer);
 
   }
-
-  for(int i = 0; i < signs.size(); i++)
-  {
-    signs[i].setImage(signsImage, Renderer);
-  powerups[i].setPos(500, 200);
-
-  }
-
-
 
 }
 
@@ -98,7 +112,7 @@ void Scene::draw(Player &p, SDL_Renderer* Renderer)
   dest.x = p.getX();
   dest.y = p.getY();
 
-  dest.w = p.getW();; // player tile size
+  dest.w = p.getW();// player tile size
   dest.h = p.getH(); //
 
   SDL_RenderCopy(Renderer, p.getTexture(), NULL, &dest);
@@ -145,6 +159,22 @@ void Scene::checkInput()
 
                 break;
 
+                case SDLK_1:
+
+                selectedSign = 0;
+                // cout << signs[selectedSign].getName() << endl;
+
+                break;
+
+                case SDLK_2:
+
+                selectedSign = 1;
+
+                // cout << signs[selectedSign].getName() << endl;
+                
+
+                break;
+
                 case SDLK_a:
 
                 isMelee = true;
@@ -174,13 +204,13 @@ void Scene::update()
   // cout << "y: " << rectangle1.getY() << endl;
 
   tick++;
+  //  if(powerups[0].getTexture() == NULL)
+    // cout << "AAAAAA";
   
   
   pickedUp = false;
 
   //cout << "y: " << characters[0].getY() << endl;
-
-
 
   if(jumping)
   {
@@ -238,7 +268,7 @@ void Scene::update()
 
   int obstNo = 0;
 
-  for(int i = 0; i < powerups.size(); i++)
+  for(int i = 0; i < 3; i++)
   {
     if(characters[0].isColliding(powerups[i]))
       {
@@ -265,7 +295,6 @@ void Scene::update()
     {
         if(characters[0].isColliding(enemies[i]))
         { 
-          screenShake = true;
           // if(characters[0].getY() - characters[0].getH() == enemies[i].getY())
           // if(speed < 0)
           if(jumpHeightSet)
@@ -321,29 +350,14 @@ void Scene::update()
 
 void Scene::render(SDL_Renderer* Renderer)
 {
+  // cout << tick << endl;
   SDL_SetRenderDrawColor(Renderer, 78, 64, 78, 1);
   SDL_RenderClear(Renderer); 
-
-  // characters[0].setImage(geraltImage - geraltImage.length(), Renderer);
-
-  draw(signs[0], Renderer);
-
-
-  animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
-
-  for(int i = 0; i < enemies.size(); i++)
-    {
-      if(enemies[i].getName() == "gryphon")
-        animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
-
-      // if(enemies[i].getName() == "drowner")
-        // animate(enemies[i], 1, resPath + enemies[i].getName(), Renderer);
-
-    }
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
 
+  draw(sign[selectedSign], Renderer);
 
   for(int i = 0; i < characters.size(); i++)
     draw(characters[i], Renderer);
@@ -351,31 +365,37 @@ void Scene::render(SDL_Renderer* Renderer)
   for(int i = 0; i < enemies.size(); i++)
     draw(enemies[i], Renderer);
 
-  for(int i = 0; i < powerups.size(); i++)
-
-  draw(powerups[i], Renderer);
-  // cout << "Rectangle";
-
-
-  // rectangle1.show(Renderer);
- // SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+  for(int i = 0; i < powerupsNo; i++)
+    {
+      draw(powerups[i], Renderer);
+      // cout << powerups[i].getName() << endl;
+    }
 
   for(int i = 0; i < obstacles.size(); i++)
   {
     obstacles[i].setX(obstacles[i].getX() - 3); 
     obstacles[i].show(Renderer);
-
   }
 
     if(isMelee)
   {
-    characters[0].attack(Renderer);
+    // characters[0].attack(Renderer);
   }
 
   isMelee = false;
 
+  //  draw(signs[0], Renderer);
 
+  for(int i = 0; i < enemies.size(); i++)
+    {
+      if(enemies[i].getName() == "gryphon")
+        animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
+    }
+
+  animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
   
+  // sign.setImage(signsImage, Renderer);
+
   SDL_RenderPresent(Renderer);
 
 }
@@ -439,6 +459,19 @@ void Scene::animate(Player& p, int frames_no, string frame_name, SDL_Renderer* R
 
 Scene::~Scene()
 {
+  for(int i = 0; i < sounds.size(); i++)
+    Mix_FreeChunk(sounds[i]);
+
+  for(int i = 0; i < characters.size(); i++)
+    characters[i].Free();
+
+  for(int i = 0; i < enemies.size(); i++)
+    enemies[i].Free();
+
+  for(int i = 0; i < powerupsNo; i++)
+    powerups[i].Free();
+
+  
 
 }
 

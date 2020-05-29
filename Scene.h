@@ -29,14 +29,18 @@ class Scene
 
   unsigned int timeA = 3000;
 
+  unsigned int selectedSign = 0;
+
   string geraltImage = "Assets/geralt/geralt_pixel_running0.png";
+
   string lavenderImage = "Assets/geralt/lavender_pixel.png";
   string lavenderImage2 = "Assets/geralt/lavender_pixel2.png";
+  
   string drownerImage = "Assets/geralt/drowner.png";
   string gryphonImage = "Assets/geralt/gryphon0.png";
+
   string signsImage = "Assets/geralt/Yrden.png";
-
-
+  // string signsImage2 = "Assets/geralt/Quen.png";
 
   string resPath = "Assets/geralt/";
 
@@ -48,11 +52,19 @@ class Scene
 
   Rect rectangle1;
   vector<Player> characters;
-  vector<Player> powerups;
+  // vector<Player> powerups;
   vector<Player> enemies;
 
   //GUI
   vector<Player> signs;
+
+
+  int powerupsNo;
+  int signsNo;
+  
+
+  Player* sign;
+  Player* powerups;
 
   vector<string> soundNames; // = "Assets/geralt/ladder1.wav";
 	// Mix_Chunk* sound;

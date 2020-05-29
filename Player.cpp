@@ -55,122 +55,6 @@ bool Player::lifestatus()
 
 }
 
-Player::Player(SDL_Renderer* renderTarget, string FilePath, int x, int y, int framesX, int framesY, string name)
-{
-    this->name = name;
-   // cout<<"Player name: "<<name;
-
-    SDL_Surface* surface = IMG_Load(FilePath.c_str());
-    //error checking
-    if(surface == NULL)
-    {
-        cout<<"Image loading error! [Player]"<<endl;
-    }
-    else
-    {
-        texture = SDL_CreateTextureFromSurface(renderTarget, surface);
-
-        if(texture == NULL)
-            cout<<"Texture creation error! [Player]"<<endl;
-        else
-            cout<<"Texture loaded! [Player] "<<name<<endl;
-    }
-
-    SDL_FreeSurface(surface);
-
-    //Get the total width and the height
-    SDL_QueryTexture(texture, NULL, NULL, &cropRect.w, &cropRect.h);
-
-    //starting position
-    posRect.x = x;
-    posRect.y = y;
-
-    textureWidth = cropRect.w; // ?
-
-
-    cropRect.w /= framesX; //total width divided by how many frames i
-    cropRect.h /= framesY;  // have
-
-    frameWidth = posRect.w = cropRect.w;
-    frameHeight = posRect.h = cropRect.h;
-
-    isActive = false;
-
-    keys[0] = SDL_SCANCODE_W;
-    keys[1] = SDL_SCANCODE_S;
-    keys[2] = SDL_SCANCODE_A;
-    keys[3] = SDL_SCANCODE_D;
-
-
-    moveSpeed = 200.0f;
-
-
-}
-
-void Player::Update(float delta, const Uint8 *keyState)
-{
-    isActive = true;
-
-    if(keyState[keys[0]])
-    {
-        posRect.y -= moveSpeed * delta;
-        cropRect.y = 0;
-    }
-
-    else if(keyState[keys[1]])
-    {
-        posRect.y += moveSpeed * delta;
-        cropRect.y = frameHeight * 2;
-    }
-
-    else if(keyState[keys[2]])
-    {
-        posRect.x -= moveSpeed * delta;
-        cropRect.y = frameHeight;
-    }
-
-    else if(keyState[keys[3]])
-    {
-        posRect.x += moveSpeed * delta;
-        cropRect.y = frameHeight * 3;
-    }
-
-    else
-
-        isActive = false;
-
-    if(isActive)
-    {
-
-        frameCounter += delta;
-
-        if(frameCounter >= 0.1f)
-        {
-
-            frameCounter = 0;
-            cropRect.x += frameWidth;
-
-            if(cropRect.x >= textureWidth)
-                cropRect.x = 0;
-        }
-    }
-
-    else
-
-    {
-        frameCounter = 0;
-        cropRect.x = frameWidth;
-    }
-
-
-}
-
-/*void Player::Draw(SDL_Renderer* renderTarget)
-{
-
-    SDL_RenderCopy(renderTarget, texture, &cropRect, &posRect);
-}*/
-
 void Player::setImage(string filename, SDL_Renderer* ren)
 {
     if(texture != NULL)
@@ -180,7 +64,13 @@ void Player::setImage(string filename, SDL_Renderer* ren)
 
     SDL_Surface* psurf = IMG_Load(filename.c_str());
 
+    if(psurf == NULL)
+        cout << "IMAGE LOADING ERROR - surface";
+
     texture = SDL_CreateTextureFromSurface(ren, psurf);
+
+    if(texture == NULL)
+        cout << "IMAGE LOADING ERROR - texture";
 
     SDL_FreeSurface(psurf);
 
@@ -314,12 +204,12 @@ Player::Player(const string name, const string filepath, int x, int y, int h, in
     this->h = h;
     this->w = w;
 
-    // SDL_Surface* psurf = IMG_Load(filepath.c_str());
+    SDL_Surface* psurf = IMG_Load(filepath.c_str());
 
-    // SDL_Texture* ptext = SDL_CreateTextureFromSurface(renderer, psurf);
+    texture = SDL_CreateTextureFromSurface(renderer, psurf);
 
-    // SDL_FreeSurface(psurf);
-    setImage(filepath, renderer);
+    SDL_FreeSurface(psurf);
+    // setImage(filepath, renderer);
 
 }
 
