@@ -226,7 +226,7 @@ void Player::attack(SDL_Renderer* Renderer) // here or in game?
     //rc.h = rc.w = 20;
     //attacking = true;
     SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
-    SDL_RenderDrawLine(Renderer, getX(), getY(), getX() + 100, getY());
+    SDL_RenderDrawLine(Renderer, getX() + getW() / 2, getY(), getX() + 100, getY());
     //SDL_RenderDrawRect(Renderer, &rc);
    // setPos(10, 10);
 }

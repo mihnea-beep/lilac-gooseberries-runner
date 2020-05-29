@@ -127,6 +127,12 @@ void Scene::checkInput()
 
                 break;
 
+                case SDLK_a:
+
+                isMelee = true;
+
+                break;
+
                 case SDLK_ESCAPE:
 
                 cout << "User pressed 'escape'!";
@@ -155,6 +161,9 @@ void Scene::update()
   pickedUp = false;
 
   //cout << "y: " << characters[0].getY() << endl;
+
+
+
   if(jumping)
   {
     if(!jumpHeightSet)
@@ -320,6 +329,15 @@ void Scene::render(SDL_Renderer* Renderer)
     obstacles[i].show(Renderer);
 
   }
+
+    if(isMelee)
+  {
+    characters[0].attack(Renderer);
+  }
+
+  isMelee = false;
+
+
   
   SDL_RenderPresent(Renderer);
 
