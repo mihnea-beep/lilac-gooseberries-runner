@@ -422,7 +422,7 @@ void Scene::loop(SDL_Renderer* Renderer)
 
     int time2 = SDL_GetTicks();
 
-    int delay = 16;
+    int delay = 2;
 
     // delay = delay - (time2 - time1);
 
