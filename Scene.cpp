@@ -323,9 +323,9 @@ void Scene::update()
           {
             jumping = true;
             jumpHeightSet = false;
-            score++;
+            monsterScore++;
             cout << "Silver boots are for monsters!" << endl;
-            cout << "Lilac amount: " << score << endl;
+            cout << "Monsters slain: " << monsterScore << endl;
             Mix_PlayChannel(-1, sounds[4], 0);
           }
           else

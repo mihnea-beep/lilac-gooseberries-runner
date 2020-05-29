@@ -75,6 +75,7 @@ class Scene
   vector<Mix_Chunk*> sounds;
 
   int score = 0; // temporary no GUI
+  int monsterScore = 0;
   int HP = 99;
 
   // int result;

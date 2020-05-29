@@ -17,4 +17,4 @@ Assets: https://www.pixilart.com/pix-man
 
 **Instructions**: Press the spacebar to jump. Press 1, 2 to select a sign.
 
-**Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items). Avoid enemies by jumping over them. 
+**Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items). Avoid enemies by jumping over them.
