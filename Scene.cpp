@@ -18,11 +18,15 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
   soundNames.push_back("Assets/geralt/witcher_levelup.wav");
   soundNames.push_back("Assets/geralt/witcher-fck.wav");
+  soundNames.push_back("Assets/geralt/sword1.wav");
+
 
 	sounds.push_back(Mix_LoadWAV(soundNames[0].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[1].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[3].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[4].c_str()));
+
 
 
   speed = 4;
@@ -264,11 +268,14 @@ void Scene::update()
   if(characters[0].getY() >= 480 - characters[0].getH())
   {
     characters[0].setY(480 - characters[0].getH());
+    landed = true;
     
   }
   else
   {
     characters[0].setY(characters[0].getY() + 1);
+    landed = false;
+    // speed = 4;
   }
 
   if(characters[0].getY() <= 0)
@@ -312,11 +319,26 @@ void Scene::update()
               // jumpHeightSet = false;
             }
 
-          damageTaken = true;
-          Mix_PlayChannel(-1, sounds[1], 0);
-          cout << "Ouch!" << endl;
-          HP --;
-          cout << "Health points: " << HP << endl;
+          if(!landed)
+          {
+            jumping = true;
+            jumpHeightSet = false;
+            score++;
+            cout << "Silver boots are for monsters!" << endl;
+            cout << "Lilac amount: " << score << endl;
+            Mix_PlayChannel(-1, sounds[4], 0);
+          }
+          else
+          {
+            damageTaken = true;
+            Mix_PlayChannel(-1, sounds[1], 0);
+            cout << "Ouch!" << endl;
+            HP --;
+            cout << "Health points: " << HP << endl;
+          }
+          
+
+          
 
           if(HP % 10 == 0)
           {

@@ -48,6 +48,7 @@ class Scene
   bool damageTaken = false;
   bool isMelee = false;
   bool screenShake = false;
+  bool landed = false;
 
 
   Rect rectangle1;
@@ -74,7 +75,7 @@ class Scene
   vector<Mix_Chunk*> sounds;
 
   int score = 0; // temporary no GUI
-  int HP = 100;
+  int HP = 99;
 
   // int result;
 
