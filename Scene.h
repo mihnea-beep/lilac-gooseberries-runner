@@ -32,6 +32,8 @@ class Scene
   string geraltImage = "Assets/geralt/geralt_pixel_running0.png";
   string lavenderImage = "Assets/geralt/lavender_pixel.png";
   string drownerImage = "Assets/geralt/drowner.png";
+  string gryphonImage = "Assets/geralt/gryphon0.png";
+
 
 
   string resPath = "Assets/geralt/";

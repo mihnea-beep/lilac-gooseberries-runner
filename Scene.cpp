@@ -24,7 +24,9 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
   // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
   // powerups.push_back(Player("Lavender", lavenderImage, 100, 200, 84, 84, Renderer));
-  enemies.push_back(Player("Drowner", drownerImage, 100, 100, 84, 84, Renderer));
+  enemies.push_back(Player("drowner", drownerImage, 100, 100, 120, 100, Renderer));
+  enemies.push_back(Player("gryphon", gryphonImage, 100, 100, 120, 100, Renderer));
+
 
 
 
@@ -48,7 +50,12 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   for(int i = 0; i < enemies.size(); i++)
   {
-    enemies[i].setImage(drownerImage, Renderer);
+    cout << enemies[i].getName() << endl;
+     if(enemies[i].getName() == "drowner")
+      enemies[i].setImage(drownerImage, Renderer);
+    
+     if(enemies[i].getName() == "gryphon")
+      enemies[i].setImage(gryphonImage, Renderer);
 
   }
 
@@ -256,6 +263,9 @@ void Scene::render(SDL_Renderer* Renderer)
   // characters[0].setImage(geraltImage - geraltImage.length(), Renderer);
 
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
+
+  for(int i = 0; i < enemies.size(); i++)
+    animate(enemies[i], enemies[i].getFrames(), resPath + enemies[i].getName(), Renderer);
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 

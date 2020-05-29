@@ -62,6 +62,8 @@ class Player
         void setH(int h);
         void setW(int w);
 
+        string getName();
+
 
         void setX(int dx);
         void setY(int dy);

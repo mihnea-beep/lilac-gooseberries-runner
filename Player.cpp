@@ -240,11 +240,15 @@ void Player::Free()
 
 }
 
+string Player::getName()
+{
+    return name;
+}
+
 void Player::setImage(string filename, SDL_Renderer* ren, int color_key) //color_key -> see pixel value return from SDL_MapRGB
 {
     if(texture != NULL)
         SDL_DestroyTexture(texture);
-
 
     texture = NULL;
 
