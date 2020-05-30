@@ -6,6 +6,7 @@
 #include <SDL2/SDL_mixer.h>
 #include "Rect.h"
 #include "Player.h"
+#include "Message.h"
 //#include "GUI.h"
 using namespace std;
 
@@ -77,6 +78,10 @@ class Scene
   int score = 0; // temporary no GUI
   int monsterScore = 0;
   int HP = 99;
+
+  Message lilac;
+  Message lilacAmount;
+
 
   // int result;
 

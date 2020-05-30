@@ -1,6 +1,11 @@
 #include "Scene.h"
 //#include "GUI.h"
-
+#include "Message.h"
+#include <SDL2/SDL_ttf.h>
+#include <iostream>
+#include <string>
+#include <SDL2/SDL_image.h>
+using namespace std;
 
 Scene::Scene()
 {
@@ -9,6 +14,9 @@ Scene::Scene()
 
 void Scene::loadRes(SDL_Renderer* Renderer)
 {
+  IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+  TTF_Init();
+  
   rectangle1.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
@@ -27,7 +35,12 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 	sounds.push_back(Mix_LoadWAV(soundNames[3].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[4].c_str()));
 
+  lilacAmount.setColor(100, 100, 100);
+  lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 30, Renderer);
 
+
+  lilac.setColor(100, 100, 100);
+  lilac.setText("Lilac", "fonts/witcherfont.ttf", 30, Renderer);
 
   speed = 4;
 
@@ -172,6 +185,12 @@ void Scene::checkInput()
                 jumping = true;
 
                 jumpHeightSet = false;
+
+                break;
+
+                case SDLK_s:
+
+                score++;
 
                 break;
 
@@ -377,9 +396,9 @@ void Scene::update()
     flags[i] = false;
   }
 
-}
+} 
 
-void Scene::render(SDL_Renderer* Renderer)
+void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killing monsters -> no more fk sound! 
 {
   // cout << tick << endl;
   SDL_SetRenderDrawColor(Renderer, 78, 64, 78, 1);
@@ -387,6 +406,24 @@ void Scene::render(SDL_Renderer* Renderer)
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
+  lilac.display(640 - 150, 20, 90, 30, Renderer);
+  if(score >= 10)
+    {
+      lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 30, Renderer);
+      lilacAmount.display(640 - 150 + 92, 20, 50, 30, Renderer);
+
+    }
+    else
+    {
+      lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 20, Renderer);
+      lilacAmount.display(640 - 150 + 92, 20, 30, 30, Renderer);
+    }
+  
+    
+
+  lilac.setText("Lilac: ", "fonts/witcherfont.ttf", 30, Renderer);
+
+  SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
   draw(sign[selectedSign], Renderer);
 
