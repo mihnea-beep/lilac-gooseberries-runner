@@ -30,6 +30,10 @@ class Scene
 
   unsigned int timeA = 3000;
 
+  uint32_t time1;
+  uint32_t time2;
+  uint32_t delay;
+
   unsigned int selectedSign = 0;
 
   string geraltImage = "Assets/geralt/geralt_pixel_running0.png";

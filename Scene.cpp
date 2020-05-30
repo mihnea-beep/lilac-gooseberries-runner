@@ -472,7 +472,7 @@ void Scene::loop(SDL_Renderer* Renderer)
   while(scene_running)
   {
      //time
-    int time1 = SDL_GetTicks();
+    time1 = SDL_GetTicks();
 
    // cout << "FPS:" << time1 / tick;
 
@@ -480,14 +480,34 @@ void Scene::loop(SDL_Renderer* Renderer)
     update();
     render(Renderer);
 
-    int time2 = SDL_GetTicks();
+    time2 = SDL_GetTicks();
 
-    int delay = 2;
+    delay = 16;
 
-    // delay = delay - (time2 - time1);
+    // cout << time2 - time1 << endl;
 
-    SDL_Delay(delay);
+    delay = delay - (time2 - time1);
 
+
+    if(delay > 16)
+       {
+         SDL_Delay(0);
+        //  cout << "0 delay" << endl;
+       }
+
+    if(delay < 16)
+     if(delay < 0)
+     {
+         SDL_Delay(0);
+        //  cout << "0 delay" << endl;
+     }
+      else
+      {
+       SDL_Delay(delay);
+      //  cout << delay << endl;
+      }
+
+      // cout << 1000 / 16 << endl << endl; 
     //time
 
   }
