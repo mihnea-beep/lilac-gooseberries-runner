@@ -71,6 +71,7 @@ class Player
         void setImage(string filename, SDL_Renderer* ren, int color_key); //transparency
 
         bool isColliding(int x, int y);
+        bool isColliding(int x, int y, int collisionDistance);
         bool isColliding(int x, int y, int offsetX, int offsetY);
         bool isColliding(Player& p);
 

@@ -240,6 +240,22 @@ bool Player::isColliding(int x, int y)
         return 0;
 }
 
+bool Player::isColliding(int x, int y, int collisionDistance)
+{
+    float centerX = getX() + getW() / 2;
+    float centerY = getY() - getH() / 2;
+
+    float dstx = centerX - x;
+    float dsty = centerY - y;
+
+    float dist = sqrt( (dstx * dstx) + (dsty * dsty) );
+
+    if(dist <= collisionDistance) // collision distance
+        return 1;
+    else
+        return 0;
+}
+
 bool Player::isColliding(int x, int y, int offsetX, int offsetY)
 {
 

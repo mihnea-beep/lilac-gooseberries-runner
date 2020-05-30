@@ -72,7 +72,7 @@ int Rect::getH()
 
 int Rect::getW()
 {
-    return y;
+    return w;
 }
 
 

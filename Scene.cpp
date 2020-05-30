@@ -349,8 +349,9 @@ void Scene::update()
             Mix_PlayChannel(-1, sounds[4], 0);
           }
           else
-          {
-            damageTaken = true;
+          { 
+            
+              damageTaken = true;
             
             cout << "Ouch!" << endl;
             HP --;
@@ -366,12 +367,29 @@ void Scene::update()
             }
           
           }
-          
 
-          
-
-         
         }
+
+
+      if(landed)
+        if(isMelee)
+          if(selectedSign == 1)
+            if(!signTimerActivated)
+              {
+                // if(enemies[i].getX() -  rectangle1.getX() <= rectangle1.getW())
+                if(enemies[i].isColliding(rectangle1.getX(), rectangle1.getY(), 150))
+                    {
+                      if(enemies[i].getX() >= rectangle1.getX())
+                        enemies[i].setX(enemies[i].getX() + 4);
+                      else
+                      {
+                        enemies[i].setX(enemies[i].getX() - 1);
+                      }
+                      
+                      cout << "DISTANCE" << endl;
+                    }
+                    
+              }
 
       if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
         if(i % 2)
@@ -474,6 +492,12 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
           isMelee = false;
 
       }
+    else
+    {
+      signTimer1 -= 13000;
+      isMelee = false;
+    }
+    
 
   }
 
