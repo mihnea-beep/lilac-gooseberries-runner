@@ -492,7 +492,7 @@ void Scene::loop(SDL_Renderer* Renderer)
     if(delay > 16)
        {
          SDL_Delay(0);
-        //  cout << "0 delay" << endl;
+         cout << "0 delay" << endl;
        }
 
     if(delay < 16)
