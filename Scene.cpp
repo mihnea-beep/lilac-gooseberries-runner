@@ -406,17 +406,18 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
-  lilac.display(640 - 150, 20, 90, 30, Renderer);
+  lilac.display(640 - 160, 20, 100, 30, Renderer);
+
   if(score >= 10)
     {
       lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 30, Renderer);
-      lilacAmount.display(640 - 150 + 92, 20, 50, 30, Renderer);
+      lilacAmount.display(640 - 160 + 100, 20, 50, 30, Renderer);
 
     }
     else
     {
       lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 20, Renderer);
-      lilacAmount.display(640 - 150 + 92, 20, 30, 30, Renderer);
+      lilacAmount.display(640 - 160 + 100, 20, 30, 30, Renderer);
     }
   
     
@@ -481,7 +482,7 @@ void Scene::loop(SDL_Renderer* Renderer)
 
     int time2 = SDL_GetTicks();
 
-    int delay = 2;
+    int delay = 4;
 
     // delay = delay - (time2 - time1);
 
