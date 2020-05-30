@@ -197,7 +197,7 @@ void Scene::checkInput()
                 case SDLK_1:
 
                 selectedSign = 0;
-                // cout << signs[selectedSign].getName() << endl;
+                  // cout <<  signs[selectedSign].getName() << endl;
 
                 break;
 
@@ -350,19 +350,26 @@ void Scene::update()
           else
           {
             damageTaken = true;
-            Mix_PlayChannel(-1, sounds[1], 0);
+            
             cout << "Ouch!" << endl;
             HP --;
             cout << "Health points: " << HP << endl;
+             if(HP % 10 == 0)
+            {
+              Mix_PlayChannel(-1, sounds[3], 0);
+            }
+
+            else
+            {
+              Mix_PlayChannel(-1, sounds[1], 0);
+            }
+          
           }
           
 
           
 
-          if(HP % 10 == 0)
-          {
-            Mix_PlayChannel(-1, sounds[3], 0);
-          }
+         
         }
 
       if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
@@ -492,7 +499,7 @@ void Scene::loop(SDL_Renderer* Renderer)
     if(delay > 16)
        {
          SDL_Delay(0);
-         cout << "0 delay" << endl;
+        //  cout << "0 delay" << endl;
        }
 
     if(delay < 16)
