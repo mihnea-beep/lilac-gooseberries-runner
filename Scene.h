@@ -10,7 +10,6 @@
 //#include "GUI.h"
 using namespace std;
 
-
 class Scene
 {
   bool scene_running = false;
@@ -29,6 +28,12 @@ class Scene
   int tick = 0;
 
   unsigned int timeA = 3000;
+  
+  uint32_t signTimer1;
+  uint32_t signTimer2;
+
+  bool signTimerActivated = false;
+
 
   uint32_t time1;
   uint32_t time2;
@@ -55,21 +60,16 @@ class Scene
   bool screenShake = false;
   bool landed = false;
 
-
   Rect rectangle1;
   vector<Player> characters;
-  // vector<Player> powerups;
-  // vector<Player> enemies;
 
   //GUI
   vector<Player> signs;
-
 
   int powerupsNo;
   int signsNo;
   int enemiesNo;
   
-
   Player* sign;
   Player* powerups;
   Player* enemies;
@@ -85,15 +85,6 @@ class Scene
 
   Message lilac;
   Message lilacAmount;
-
-
-  // int result;
-
-
-  // Player* geralt;
-
-
-
 
   public:
 

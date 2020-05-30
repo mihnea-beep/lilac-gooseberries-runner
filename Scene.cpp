@@ -17,7 +17,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
   TTF_Init();
   
-  rectangle1.setDim(320, 240, 20, 20);
+  // rectangle1.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
 	Mix_AllocateChannels(4);
@@ -211,6 +211,7 @@ void Scene::checkInput()
                 case SDLK_a:
 
                 isMelee = true;
+                signTimerActivated = true;
 
                 break;
 
@@ -455,10 +456,29 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
 
     if(isMelee)
   {
+
+    if(signTimerActivated)
+    {
+      signTimer1 = SDL_GetTicks();
+      
+      signTimerActivated = false;
+    }
+
     // characters[0].attack(Renderer);
+    if(selectedSign == 1)
+      {
+        rectangle1.setDim(characters[0].getX() - 10 - rand() % 3, characters[0].getY() - 20 - rand() % 3, 120, 120);
+        rectangle1.colorHit(Renderer);
+
+        if(SDL_GetTicks() - signTimer1 >= 13000)
+          isMelee = false;
+
+      }
+
   }
 
-  isMelee = false;
+  
+
 
   for(int i = 0; i < enemiesNo; i++)
     {
@@ -467,6 +487,11 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     }
 
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
+
+  if(isMelee)
+    if(selectedSign == 1)
+      rectangle1.show(Renderer);
+
   
   SDL_RenderPresent(Renderer);
 
