@@ -15,6 +15,8 @@ Player::Player()
     weapon = NULL;
     x = 50;
     y = 50;
+    w = 100;
+    h = 100;
     isAlive = true;
 
 }

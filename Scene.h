@@ -60,6 +60,9 @@ class Scene
   string gryphonImage = "Assets/geralt/gryphon0.png";
 
   string signsImage = "Assets/geralt/Yrden.png";
+
+  string moonImage = "Assets/geralt/moon02.png";
+
   // string signsImage2 = "Assets/geralt/Quen.png";
 
   string resPath = "Assets/geralt/";
@@ -79,10 +82,14 @@ class Scene
   int powerupsNo;
   int signsNo;
   int enemiesNo;
+  int starsNo;
+  int bgElementsNo;
   
   Player* sign;
   Player* powerups;
   Player* enemies;
+  Player* background;
+  SDL_Point* stars;
 
   vector<string> soundNames; // = "Assets/geralt/ladder1.wav";
 	// Mix_Chunk* sound;

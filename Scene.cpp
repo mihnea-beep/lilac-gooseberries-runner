@@ -47,10 +47,23 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   signsNo = 2;
   powerupsNo = 3;
   enemiesNo = 2;
+  starsNo = 500;
+  bgElementsNo = 1;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
   enemies = new Player[enemiesNo];
+  background = new Player[bgElementsNo];
+  stars = new SDL_Point[starsNo];
+
+  for(int i = 0; i < bgElementsNo; i++)
+  {
+    background[i].setH(84);
+    background[i].setW(84);
+    background[i].setPos(500, 60);
+  }
+
+  background[0].setImage(moonImage, Renderer);
 
   // signs
 
@@ -131,6 +144,11 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   }
 
+  for(int i = 0; i < starsNo; i++)
+  {
+    stars[i].x = rand() % 640;
+    stars[i].y = rand() % 300; 
+  }
 }
 
 void Scene::draw(Player &p, SDL_Renderer* Renderer)
@@ -346,7 +364,7 @@ void Scene::update()
       
 
     if(powerups[i].getX() <= -100 || characters[0].isColliding(powerups[i]) ) // type
-      powerups[i].setPos(rand() % characters[0].getX() + 640 + 100, rand() % 480);
+      powerups[i].setPos(rand() % characters[0].getX() + 640 + 100 + 20, rand() % 400 + 50);
     
 
       powerups[i].setX(powerups[i].getX() - 3);
@@ -457,7 +475,18 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
   SDL_SetRenderDrawColor(Renderer, 78, 64, 78, 1);
   SDL_RenderClear(Renderer); 
 
-  SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+  SDL_SetRenderDrawColor(Renderer, 255, 255, 20, 0);
+
+  // for(int i = 0; i < bgElementsNo; i++)
+
+
+  for(int i = 0; i < starsNo; i++)
+  {
+    SDL_RenderDrawPoint(Renderer, stars[i].x, stars[i].y);
+  }
+
+  draw(background[0], Renderer);
+
 
   lilac.display(640 - 160, 20, 100, 30, Renderer);
 
@@ -479,7 +508,8 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
-  draw(sign[selectedSign], Renderer);
+  if(selectedSign == 1 || selectedSign == 0)
+    draw(sign[selectedSign], Renderer);
 
   for(int i = 0; i < characters.size(); i++)
     draw(characters[i], Renderer);
@@ -539,6 +569,8 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
   if(isMelee)
     if(selectedSign == Quen)
       rectangle1.show(Renderer);
+
+  cout << IMG_GetError() << endl;
 
   
   SDL_RenderPresent(Renderer);
