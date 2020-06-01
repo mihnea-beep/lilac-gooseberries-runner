@@ -570,7 +570,7 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     if(selectedSign == Quen)
       rectangle1.show(Renderer);
 
-  cout << IMG_GetError() << endl;
+  // cout << IMG_GetError() << endl;
 
   
   SDL_RenderPresent(Renderer);
