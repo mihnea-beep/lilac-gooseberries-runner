@@ -34,12 +34,22 @@ class Scene
 
   bool signTimerActivated = false;
 
+  enum signType
+  {
+    Yrden,
+    Quen,
+    Igni,
+    Aard,
+    Axii
+  };
+
+  signType selectedSign;
 
   uint32_t time1;
   uint32_t time2;
   uint32_t delay;
 
-  unsigned int selectedSign = 0;
+  // unsigned int selectedSign = 0;
 
   string geraltImage = "Assets/geralt/geralt_pixel_running0.png";
 

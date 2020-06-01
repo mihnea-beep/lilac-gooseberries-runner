@@ -196,18 +196,45 @@ void Scene::checkInput()
 
                 case SDLK_1:
 
-                selectedSign = 0;
+                selectedSign = Yrden;
                   // cout <<  signs[selectedSign].getName() << endl;
 
                 break;
 
                 case SDLK_2:
 
-                selectedSign = 1;
+                selectedSign = Quen;
                 // cout << signs[selectedSign].getName() << endl;
                 
                 break;
 
+                case SDLK_3:
+
+                selectedSign = Igni;
+
+                break;
+
+                case SDLK_4:
+
+                // selectedSign = Aard;
+
+                break;
+                
+                case SDLK_5:
+
+                // selectedSign = 5;
+
+                break;
+                
+                case SDLK_6:
+
+                // selectedSign = 6;
+
+                break;
+                
+                
+                
+                
                 case SDLK_a:
 
                 isMelee = true;
@@ -373,7 +400,7 @@ void Scene::update()
 
       if(landed)
         if(isMelee)
-          if(selectedSign == 1)
+          if(selectedSign == Quen)
             if(!signTimerActivated)
               {
                 // if(enemies[i].getX() -  rectangle1.getX() <= rectangle1.getW())
@@ -483,7 +510,7 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     }
 
     // characters[0].attack(Renderer);
-    if(selectedSign == 1)
+    if(selectedSign == Quen)
       {
         rectangle1.setDim(characters[0].getX() - 10 - rand() % 3, characters[0].getY() - 20 - rand() % 3, 120, 120);
         rectangle1.colorHit(Renderer);
@@ -501,9 +528,6 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
 
   }
 
-  
-
-
   for(int i = 0; i < enemiesNo; i++)
     {
       if(enemies[i].getName() == "gryphon")
@@ -513,7 +537,7 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
 
   if(isMelee)
-    if(selectedSign == 1)
+    if(selectedSign == Quen)
       rectangle1.show(Renderer);
 
   
