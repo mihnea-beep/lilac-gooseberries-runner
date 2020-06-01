@@ -607,11 +607,14 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     if(selectedSign == Igni)
     {
       cout << "fireeee" << endl;
-      igniBullets[0].setLaunch(true); // bullet mechanic
-      igniBullets[0].setX(characters[0].getX() + 30);
-      igniBullets[0].setY(characters[0].getY() - 30);
-    }
 
+      if(!igniBullets[0].lifestatus())
+      {
+        igniBullets[0].setLaunch(true); // bullet mechanic
+        igniBullets[0].setX(characters[0].getX() + 30);
+        igniBullets[0].setY(characters[0].getY() - 30);
+      }
+    }
   }
 
   if(igniBullets[0].getLaunch())
@@ -623,14 +626,19 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
   if(igniBullets[0].lifestatus())
   {
     draw(igniBullets[0], Renderer);
-    igniBullets[0].setX(igniBullets[0].getX() + 1);
-  }
+    igniBullets[0].setX(igniBullets[0].getX() + 5);
 
+    if(igniBullets[0].getX() >= 640)
+    {
+      igniBullets[0].setLife(false);
+    }
+  }
 
   for(int i = 0; i < enemiesNo; i++)
     {
       if(enemies[i].getName() == "gryphon")
         animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
+        // cout << SDL_GetError() << endl; invalid texture sometimes
     }
 
   animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
