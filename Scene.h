@@ -29,6 +29,10 @@ class Scene
 
   unsigned int timeA = 3000;
   
+  uint32_t starTimer;
+
+  bool starTimerActivated = true;
+  
   uint32_t signTimer1;
   uint32_t signTimer2;
 

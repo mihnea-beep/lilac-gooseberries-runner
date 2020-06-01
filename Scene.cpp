@@ -44,7 +44,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   speed = 4;
 
-  signsNo = 2;
+  signsNo = 3;
   powerupsNo = 3;
   enemiesNo = 2;
   starsNo = 500;
@@ -76,6 +76,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   sign[0].setImage(signsImage, Renderer);
   sign[1].setImage(resPath + "Quen.png", Renderer);
+  sign[2].setImage(resPath + "Igni.png", Renderer);
+
 
   // powerups
 
@@ -448,6 +450,31 @@ void Scene::update()
     }
 
 
+
+    if(starTimerActivated == true)
+
+     for(int i = 0; i < starsNo; i++)
+  {
+    {
+    cout << "AAAAA";
+
+      // stars[i].x--;
+      starTimer = SDL_GetTicks();
+      starTimerActivated = false;
+    }
+    
+    if(stars[i].x <= 0)
+      {
+        stars[i].x = rand() % 640;
+      }
+  }
+
+      if(SDL_GetTicks() - starTimer >= 10)
+    {
+      starTimerActivated = true;
+    }
+
+
   for(auto it = obstacles.begin(); it != obstacles.end(); it++)
   {
 
@@ -485,6 +512,11 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     SDL_RenderDrawPoint(Renderer, stars[i].x, stars[i].y);
   }
 
+  // if(starTimerActivated)
+  // {
+  //   SDL_SetRenderDrawColor(Renderer, 255, 200, 100, 0);
+  // }
+
   draw(background[0], Renderer);
 
 
@@ -508,7 +540,7 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
 
-  if(selectedSign == 1 || selectedSign == 0)
+  if(selectedSign == 1 || selectedSign == 0 || selectedSign == 2)
     draw(sign[selectedSign], Renderer);
 
   for(int i = 0; i < characters.size(); i++)
