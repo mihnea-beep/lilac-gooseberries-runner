@@ -49,12 +49,15 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   enemiesNo = 2;
   starsNo = 500;
   bgElementsNo = 1;
+  igniBulletsNo = 1;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
   enemies = new Player[enemiesNo];
   background = new Player[bgElementsNo];
   stars = new SDL_Point[starsNo];
+  igniBullets = new Bullet[igniBulletsNo];
+
 
   for(int i = 0; i < bgElementsNo; i++)
   {
@@ -77,6 +80,20 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   sign[0].setImage(signsImage, Renderer);
   sign[1].setImage(resPath + "Quen.png", Renderer);
   sign[2].setImage(resPath + "Igni.png", Renderer);
+
+  selectedSign = Yrden;
+
+  for(int i = 0; i < igniBulletsNo; i++)
+  {
+    igniBullets[i].setH(50);
+    igniBullets[i].setW(50);
+    // igniBullets[i].setX(50);
+    // igniBullets[i].setY(50);
+    igniBullets[i].setLife(false);
+    igniBullets[i].setLaunch(false);
+  }
+
+  igniBullets[0].setImage("Assets/geralt/Igni.png", Renderer);
 
 
   // powerups
@@ -456,16 +473,16 @@ void Scene::update()
      for(int i = 0; i < starsNo; i++)
   {
     {
-    cout << "AAAAA";
+    // cout << "AAAAA";
 
-      // stars[i].x--;
+      stars[i].x--;
       starTimer = SDL_GetTicks();
       starTimerActivated = false;
     }
     
     if(stars[i].x <= 0)
       {
-        stars[i].x = rand() % 640;
+        stars[i].x = rand() % 640 + 640;
       }
   }
 
@@ -586,9 +603,29 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
       signTimer1 -= 13000;
       isMelee = false;
     }
-    
+
+    if(selectedSign == Igni)
+    {
+      cout << "fireeee" << endl;
+      igniBullets[0].setLaunch(true); // bullet mechanic
+      igniBullets[0].setX(characters[0].getX() + 30);
+      igniBullets[0].setY(characters[0].getY() - 30);
+    }
 
   }
+
+  if(igniBullets[0].getLaunch())
+  {
+   igniBullets[0].setLaunch(false);
+   igniBullets[0].setLife(true); 
+  }
+
+  if(igniBullets[0].lifestatus())
+  {
+    draw(igniBullets[0], Renderer);
+    igniBullets[0].setX(igniBullets[0].getX() + 1);
+  }
+
 
   for(int i = 0; i < enemiesNo; i++)
     {

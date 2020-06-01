@@ -7,6 +7,7 @@
 #include "Rect.h"
 #include "Player.h"
 #include "Message.h"
+#include "Bullet.h"
 //#include "GUI.h"
 using namespace std;
 
@@ -88,12 +89,14 @@ class Scene
   int enemiesNo;
   int starsNo;
   int bgElementsNo;
+  int igniBulletsNo;
   
   Player* sign;
   Player* powerups;
   Player* enemies;
   Player* background;
   SDL_Point* stars;
+  Bullet* igniBullets;
 
   vector<string> soundNames; // = "Assets/geralt/ladder1.wav";
 	// Mix_Chunk* sound;
