@@ -453,14 +453,11 @@ void Scene::update()
         enemies[i].setX(enemies[i].getX() - 3);
     }
 
-
-
     if(starTimerActivated == true)
 
      for(int i = 0; i < starsNo; i++)
   {
     {
-    // cout << "AAAAA";
 
       stars[i].x--;
       starTimer = SDL_GetTicks();
@@ -502,27 +499,24 @@ void Scene::update()
 
 void Scene::render(SDL_Renderer* Renderer)
 {
-  // cout << tick << endl;
+
   SDL_SetRenderDrawColor(Renderer, 78, 64, 78, 1);
   SDL_RenderClear(Renderer); 
 
   SDL_SetRenderDrawColor(Renderer, 255, 255, 20, 0);
 
-  // for(int i = 0; i < bgElementsNo; i++)
-
+  // stars 
 
   for(int i = 0; i < starsNo; i++)
   {
     SDL_RenderDrawPoint(Renderer, stars[i].x, stars[i].y);
   }
 
-  // if(starTimerActivated)
-  // {
-  //   SDL_SetRenderDrawColor(Renderer, 255, 200, 100, 0);
-  // }
+  // moon + background elements
 
   draw(background[0], Renderer);
 
+  // lilac score text
 
   lilac.display(640 - 160, 20, 100, 30, Renderer);
 
@@ -537,12 +531,12 @@ void Scene::render(SDL_Renderer* Renderer)
       lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 20, Renderer);
       lilacAmount.display(640 - 160 + 100, 20, 30, 30, Renderer);
     }
-  
-    
 
   lilac.setText("Lilac: ", "fonts/witcherfont.ttf", 30, Renderer);
 
   SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+
+  // signs
 
   if(selectedSign == 1 || selectedSign == 0 || selectedSign == 2)
     draw(sign[selectedSign], Renderer);
@@ -556,22 +550,19 @@ void Scene::render(SDL_Renderer* Renderer)
   for(int i = 0; i < powerupsNo; i++)
     {
       draw(powerups[i], Renderer);
-      // cout << powerups[i].getName() << endl;
     }
 
-  for(int i = 0; i < obstacles.size(); i++)
-  {
-    obstacles[i].setX(obstacles[i].getX() - 3); 
-    obstacles[i].show(Renderer);
-  }
+  // for(int i = 0; i < obstacles.size(); i++) // parallaxing TODO: background
+  // {
+  //   obstacles[i].setX(obstacles[i].getX() - 3); 
+  //   obstacles[i].show(Renderer);
+  // }
 
   // Melee state (activating signs) 
 
     if(isMelee)
   {
-
     // Yrden
-
     if(selectedSign == Yrden && isMelee)
     {
       cout << "Yrden selected" << endl;
@@ -580,7 +571,6 @@ void Scene::render(SDL_Renderer* Renderer)
     }
 
     // Igni
-
     if( (selectedSign == Igni) && (isMelee) )
     {
       cout << "Igni selected" << endl;
@@ -591,7 +581,6 @@ void Scene::render(SDL_Renderer* Renderer)
     }
 
     // Quen
-
     if( (selectedSign == Quen) && (isMelee) )
       {
 
@@ -606,6 +595,7 @@ void Scene::render(SDL_Renderer* Renderer)
 
   }
 
+  // enemies
   for(int i = 0; i < enemiesNo; i++)
     {
       if(enemies[i].getName() == "gryphon")
