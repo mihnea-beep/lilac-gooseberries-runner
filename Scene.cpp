@@ -669,7 +669,7 @@ void Scene::render(SDL_Renderer* Renderer)
       quenShield.setDim(characters[0].getX() - 10 - rand() % 3, characters[0].getY() - 20 - rand() % 3, 120, 120); // separate the shield from activeSign?
       quenShield.colorHit(Renderer);
 
-       if(SDL_GetTicks() - signTimer1 >= 1000)
+       if(SDL_GetTicks() - signTimer1 >= 13000)
          activeSign = noSign;
 
       quenShield.show(Renderer);
