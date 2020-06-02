@@ -45,11 +45,12 @@ class Scene
     Quen,
     Igni,
     Aard,
-    Axii
+    Axii,
+    noSign
   };
 
   signType selectedSign;
-  signType activeSign;
+  signType activeSign = noSign;
 
   uint32_t time1;
   uint32_t time2;
@@ -79,7 +80,7 @@ class Scene
   bool screenShake = false;
   bool landed = false;
 
-  Rect rectangle1;
+  Rect quenShield;
   vector<Player> characters;
 
   //GUI

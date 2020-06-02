@@ -17,7 +17,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
   TTF_Init();
   
-  // rectangle1.setDim(320, 240, 20, 20);
+  // quenShield.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
 	Mix_AllocateChannels(4);
@@ -270,10 +270,7 @@ void Scene::checkInput()
                 // selectedSign = 6;
 
                 break;
-                
-                
-                
-                
+                                
                 case SDLK_a:
 
                 isMelee = true;
@@ -301,28 +298,19 @@ void Scene::checkInput()
 void Scene::update()
 {
 
-  // cout << "y: " << rectangle1.getY() << endl;
-
   tick++;
-  //  if(powerups[0].getTexture() == NULL)
-    // cout << "AAAAAA";
-  
-  
-  pickedUp = false;
 
-  //cout << "y: " << characters[0].getY() << endl;
+  pickedUp = false;
 
   if(jumping)
   {
     if(!jumpHeightSet)
       {
-        jumpHeight = characters[0].getY() - 180;//rectangle1.getY() - 180;
+        jumpHeight = characters[0].getY() - 180;//quenShield.getY() - 180;
         jumpHeightSet = true;
         jumpDecrease = false;
         speed = 18;
       }
-
-    // speed = speed - 0.4;
 
     characters[0].setY(characters[0].getY() - speed);
 
@@ -335,17 +323,12 @@ void Scene::update()
           } 
       }
 
-      // extraSpeed = (float)speed - 0.5;
       speed --;
-      
-      // speed = (float)speed - extraSpeed;
-
 
     if(characters[0].getY() <= jumpHeight)
     {
       jumpHeightSet = false;
       jumping = false;
-      // speed = 18;
     } 
   }
 
@@ -361,13 +344,14 @@ void Scene::update()
   {
     characters[0].setY(characters[0].getY() + 1);
     landed = false;
-    // speed = 4;
   }
 
   if(characters[0].getY() <= 0)
   {
     
   }
+
+  // powerups collisions
 
   for(int i = 0; i < powerupsNo; i++)
   {
@@ -392,7 +376,8 @@ void Scene::update()
 
   }
 
-  // cout << speed;
+    // enemies collision
+
     for(int i = 0; i < enemiesNo; i++)
     {
         if(characters[0].isColliding(enemies[i]))
@@ -438,14 +423,14 @@ void Scene::update()
 
 
       if(landed)
-        if(isMelee)
-          if(selectedSign == Quen)
-            if(!signTimerActivated)
+        // if(isMelee)
+          if(activeSign == Quen)
+            // if(!signTimerActivated)
               {
-                // if(enemies[i].getX() -  rectangle1.getX() <= rectangle1.getW())
-                if(enemies[i].isColliding(rectangle1.getX(), rectangle1.getY(), 150))
+                // if(enemies[i].getX() -  quenShield.getX() <= quenShield.getW())
+                if(enemies[i].isColliding(quenShield.getX(), quenShield.getY(), 150))
                     {
-                      if(enemies[i].getX() >= rectangle1.getX())
+                      if(enemies[i].getX() >= quenShield.getX())
                         enemies[i].setX(enemies[i].getX() + 4);
                       else
                       {
@@ -580,51 +565,76 @@ void Scene::render(SDL_Renderer* Renderer)
     obstacles[i].show(Renderer);
   }
 
+  // Melee state (activating signs) 
+
     if(isMelee)
   {
 
+    // Yrden
+
+    if(selectedSign == Yrden && isMelee)
+    {
+      cout << "Yrden selected" << endl;
+      activeSign = Yrden;
+      isMelee = false;
+    }
+
     // Igni
 
-    if(selectedSign == Igni)
+    if( (selectedSign == Igni) && (isMelee) )
     {
-      cout << "fireeee" << endl;
+      cout << "Igni selected" << endl;
+      
+      activeSign = Igni;
 
-      if(!igniBullets[0].lifestatus())
-      {
-        igniBullets[0].setLaunch(true); // bullet mechanic
-        igniBullets[0].setX(characters[0].getX() + 30);
-        igniBullets[0].setY(characters[0].getY() - 30);
-      }
+      isMelee = false;
     }
 
     // Quen
 
-    if(signTimerActivated && selectedSign == Quen)
-    {
-      signTimer1 = SDL_GetTicks();
-      
-      signTimerActivated = false;
-    }
-
-    // characters[0].attack(Renderer);
-    if(selectedSign == Quen)
+    if( (selectedSign == Quen) && (isMelee) )
       {
-        rectangle1.setDim(characters[0].getX() - 10 - rand() % 3, characters[0].getY() - 20 - rand() % 3, 120, 120);
-        rectangle1.colorHit(Renderer);
 
-        if(SDL_GetTicks() - signTimer1 >= 13000)
+          activeSign = Quen;
           isMelee = false;
-
       }
     else
     {
-      signTimer1 -= 13000;
+      // signTimer1 -= 13000;
       isMelee = false;
     }
 
   }
 
-  // Igni bullet logic
+  for(int i = 0; i < enemiesNo; i++)
+    {
+      if(enemies[i].getName() == "gryphon")
+        animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
+        // cout << SDL_GetError() << endl; invalid texture sometimes
+    }
+
+  animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
+
+  // Yrden trap logic
+
+  if(activeSign == Yrden)
+  {
+    activeSign = noSign;
+  }
+
+   // Igni bullet logic
+  
+  if(activeSign == Igni)
+    {
+      if(!igniBullets[0].lifestatus())
+        {
+          igniBullets[0].setLaunch(true); // bullet mechanic
+          igniBullets[0].setX(characters[0].getX() + 30);
+          igniBullets[0].setY(characters[0].getY() - 30);
+        }
+    
+       activeSign = noSign;
+    }
 
   if(igniBullets[0].getLaunch())
   {
@@ -643,29 +653,36 @@ void Scene::render(SDL_Renderer* Renderer)
     }
   }
 
-  for(int i = 0; i < enemiesNo; i++)
-    {
-      if(enemies[i].getName() == "gryphon")
-        animate(enemies[i], 6, resPath + enemies[i].getName(), Renderer);
-        // cout << SDL_GetError() << endl; invalid texture sometimes
+  // Quen shield logic
+
+  if(activeSign == Quen)
+     {
+      if( (signTimerActivated) )
+        {
+          cout << "Quen timer activated" << endl;
+            
+          signTimer1 = SDL_GetTicks();
+            
+          signTimerActivated = false;
+        }
+
+      quenShield.setDim(characters[0].getX() - 10 - rand() % 3, characters[0].getY() - 20 - rand() % 3, 120, 120); // separate the shield from activeSign?
+      quenShield.colorHit(Renderer);
+
+       if(SDL_GetTicks() - signTimer1 >= 1000)
+         activeSign = noSign;
+
+      quenShield.show(Renderer);
     }
-
-  animate(characters[0], 7, resPath + "geralt_pixel_running", Renderer);
-
-  if(isMelee)
-    if(selectedSign == Quen)
-      rectangle1.show(Renderer);
 
   // cout << IMG_GetError() << endl;
 
-  
   SDL_RenderPresent(Renderer);
 
 }
 
 void Scene::loop(SDL_Renderer* Renderer)
 {
-
 
   while(scene_running)
   {
@@ -685,7 +702,6 @@ void Scene::loop(SDL_Renderer* Renderer)
     // cout << time2 - time1 << endl;
 
     delay = delay - (time2 - time1);
-
 
     if(delay > 16)
        {
