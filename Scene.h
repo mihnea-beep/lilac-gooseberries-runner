@@ -49,6 +49,7 @@ class Scene
   };
 
   signType selectedSign;
+  signType activeSign;
 
   uint32_t time1;
   uint32_t time2;

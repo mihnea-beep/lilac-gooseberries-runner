@@ -217,6 +217,8 @@ void Scene::checkInput()
 
                 case SDLK_SPACE:
 
+                case SDLK_UP:
+
                 cout << "JUMP" << endl;
 
                 jumping = true;
@@ -513,7 +515,7 @@ void Scene::update()
 
 } 
 
-void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killing monsters -> no more fk sound! 
+void Scene::render(SDL_Renderer* Renderer)
 {
   // cout << tick << endl;
   SDL_SetRenderDrawColor(Renderer, 78, 64, 78, 1);
@@ -581,7 +583,23 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
     if(isMelee)
   {
 
-    if(signTimerActivated)
+    // Igni
+
+    if(selectedSign == Igni)
+    {
+      cout << "fireeee" << endl;
+
+      if(!igniBullets[0].lifestatus())
+      {
+        igniBullets[0].setLaunch(true); // bullet mechanic
+        igniBullets[0].setX(characters[0].getX() + 30);
+        igniBullets[0].setY(characters[0].getY() - 30);
+      }
+    }
+
+    // Quen
+
+    if(signTimerActivated && selectedSign == Quen)
     {
       signTimer1 = SDL_GetTicks();
       
@@ -604,18 +622,9 @@ void Scene::render(SDL_Renderer* Renderer)    // TODO: if health is low && killi
       isMelee = false;
     }
 
-    if(selectedSign == Igni)
-    {
-      cout << "fireeee" << endl;
-
-      if(!igniBullets[0].lifestatus())
-      {
-        igniBullets[0].setLaunch(true); // bullet mechanic
-        igniBullets[0].setX(characters[0].getX() + 30);
-        igniBullets[0].setY(characters[0].getY() - 30);
-      }
-    }
   }
+
+  // Igni bullet logic
 
   if(igniBullets[0].getLaunch())
   {

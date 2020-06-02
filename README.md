@@ -16,7 +16,7 @@ Assets: https://www.pixilart.com/pix-man
 
 **Instructions**: 
 
-Use the spacebar to jump. 
+Use the spacebar or the up arrow to jump. 
 
 Press 1, 2 to select a sign.
 
