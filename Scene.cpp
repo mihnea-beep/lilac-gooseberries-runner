@@ -518,7 +518,7 @@ void Scene::update()
     
     if(background[i].getX() + 200 <= 0)
       {
-        background[i].setX(rand() % 640 + 640);
+        background[i].setX(rand() % 640 + 640 + 30);
         background[i].setY(rand() % 100 + 20);
 
       }
@@ -538,6 +538,7 @@ void Scene::update()
         if(score != 0)
          if(score % 51 == 0)
       {
+        // gwentCards[0].setImage 
         gwentCards[0].setX(rand() % 640 + 640);
         gwentCards[0].setY(rand() % 400 + 60);
         // gwentCardSet = true;
@@ -579,10 +580,10 @@ void Scene::render(SDL_Renderer* Renderer)
 
   for(int i = 0; i < starsNo; i++)
   {
-    SDL_RenderDrawPoint(Renderer, stars[i].x, stars[i].y);
+    // SDL_RenderDrawPoint(Renderer, stars[i].x, stars[i].y);
   }
 
-  // moon + background elements
+  // clouds + background elements
 
   for(int i = 0; i < bgElementsNo; i++)
    draw(background[i], Renderer);
