@@ -402,7 +402,7 @@ void Scene::update()
    {
      gwentCards[i].setX(gwentCards[i].getX() - 3);
 
-     if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 40, gwentCards[i].getX() + gwentCards[i].getW() / 2, gwentCards[i].getY() + gwentCards[i].getH() / 2, 60))
+     if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 40, gwentCards[i].getX() + gwentCards[i].getW() / 2, gwentCards[i].getY() + gwentCards[i].getH() / 2, 70))
        {
          gwentCardSpawned = false;
          Mix_PlayChannel(-1, sounds[7], 0);
@@ -539,7 +539,7 @@ void Scene::update()
          if(score % 51 == 0)
       {
         gwentCards[0].setX(rand() % 640 + 640);
-        gwentCards[0].setY(rand() % 400 + 80);
+        gwentCards[0].setY(rand() % 400 + 60);
         // gwentCardSet = true;
         gwentCardSpawned = true;
 
