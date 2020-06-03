@@ -18,8 +18,13 @@ Assets: https://www.pixilart.com/pix-man
 
 Use the spacebar or the up arrow to jump. 
 
-Press 1, 2 to select a sign.
+Press 1, 2 or 3 to select a sign.
 
 To activate a sign, press 'A'.
 
-**Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items) to gain points. Avoid enemies by jumping over them, or jump on them to give them a taste of silver (boots).
+<b>Quen</b> creates a magic shield around you, absorbing physical damage.
+
+<b>Igni</b> shoots a fireball, killing every enemy it encounters.
+
+**Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items) to gain points and be careful not to miss any Gwent cards! Avoid enemies by jumping over them, or jump on them to give them a taste of silver (boots).
+

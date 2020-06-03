@@ -53,7 +53,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   powerupsNo = 3;
   enemiesNo = 2;
   starsNo = 500; // burn effect instead of stars 
-  bgElementsNo = 3; // TODO: add clouds (moving)
+  bgElementsNo = 5; // TODO: add clouds (moving)
   igniBulletsNo = 3;
   gwentCardsNo = 1;
 
@@ -518,9 +518,8 @@ void Scene::update()
     
     if(background[i].getX() + 200 <= 0)
       {
-        background[i].setX(rand() % 640 + 640 + 30);
-        background[i].setY(rand() % 100 + 20);
-
+          background[i].setX(rand() % 640 + 640 + 30);
+          background[i].setY(rand() % 100 + 20);
       }
   }
 
