@@ -242,6 +242,27 @@ bool Player::isColliding(int x, int y)
         return 0;
 }
 
+bool Player::isColliding(int objX, int objY, int x, int y, int collisionDist, SDL_Renderer* renderer)
+{
+    float centerX = getX() + getW() / 2 + objX; // object offset
+    float centerY = getY() - getH() / 2 + objY; // object offset
+
+    float dstx = centerX - x;
+    float dsty = centerY - y;
+
+    float dist = sqrt( (dstx * dstx) + (dsty * dsty) );
+
+
+    if(renderer != NULL)
+        SDL_RenderDrawLine(renderer, centerX, centerY, x, y);
+
+    if(dist <= collisionDist) // collision distance
+        return 1;
+    else
+        return 0;
+}
+
+
 bool Player::isColliding(int x, int y, int collisionDistance)
 {
     float centerX = getX() + getW() / 2;

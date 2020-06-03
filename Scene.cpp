@@ -77,6 +77,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     sign[i].setPos(20, 20);
   }
 
+  sign[2].setH(100);
+  sign[2].setW(80);
+
+
   sign[0].setImage(signsImage, Renderer);
   sign[1].setImage(resPath + "Quen.png", Renderer);
   sign[2].setImage(resPath + "Igni.png", Renderer);
@@ -85,15 +89,15 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   for(int i = 0; i < igniBulletsNo; i++)
   {
-    igniBullets[i].setH(30);
-    igniBullets[i].setW(30);
+    igniBullets[i].setH(25);
+    igniBullets[i].setW(50);
     // igniBullets[i].setX(50);
     // igniBullets[i].setY(50);
     igniBullets[i].setLife(false);
     igniBullets[i].setLaunch(false);
   }
 
-  igniBullets[0].setImage("Assets/geralt/Igni.png", Renderer);
+  igniBullets[0].setImage("Assets/geralt/fire/fire0.png", Renderer);
   //  igniBullets[0].setH(20);
   //  igniBullets[0].setW(20);
 
@@ -425,7 +429,11 @@ void Scene::update()
 
       if(igniBullets[0].lifestatus())
       {
-       if(igniBullets[0].isColliding(enemies[i].getX() + 35, enemies[i].getY() + enemies[i].getH() / 2, 20))
+        SDL_Renderer* rnd = NULL;
+
+      //  if(igniBullets[0].isColliding(enemies[i].getX() + 35, enemies[i].getY() + enemies[i].getH() / 2, 20))
+        if(igniBullets[0].isColliding(0, 20, enemies[i].getX() + enemies[i].getW() / 2 + 20, enemies[i].getY() + enemies[i].getH() / 2, 50))
+      
       // if(enemies[i].isColliding(igniBullets[i].getX(), igniBullets[i].getY()))
         {
           enemyHit = true;
@@ -630,7 +638,7 @@ void Scene::render(SDL_Renderer* Renderer)
         {
           igniBullets[0].setLaunch(true); // bullet mechanic
           igniBullets[0].setX(characters[0].getX() + 30);
-          igniBullets[0].setY(characters[0].getY() + 30);
+          igniBullets[0].setY(characters[0].getY() + 20);
         }
     
        activeSign = noSign;
@@ -642,9 +650,20 @@ void Scene::render(SDL_Renderer* Renderer)
    igniBullets[0].setLife(true); 
   }
 
+  
+
   if(igniBullets[0].lifestatus())
   {
     draw(igniBullets[0], Renderer);
+
+    // igniBullets[0].isColliding(0, 20, enemies[0].getX() + enemies[0].getW() / 2, enemies[0].getY() + enemies[0].getH() / 2, 20, Renderer);
+    
+    // igniBullets[0].isColliding(0, 20, enemies[1].getX() + enemies[1].getW() / 2, enemies[1].getY() + enemies[1].getH() / 2, 20, Renderer);
+
+    animate(igniBullets[0], 7, "Assets/geralt/fire/fire", Renderer);
+
+    // cout << igniBullets[0].isColliding(enemies[1].getX(), enemies[1].getY(), Renderer);
+
     igniBullets[0].setX(igniBullets[0].getX() + 5);
 
     if(igniBullets[0].getX() >= 640)
