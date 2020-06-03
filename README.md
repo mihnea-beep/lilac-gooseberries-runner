@@ -22,9 +22,10 @@ Press 1, 2 or 3 to select a sign.
 
 To activate a sign, press 'A'.
 
-<b>Quen</b> creates a magic shield around you, absorbing physical damage and blocking enemy attacks.
+<i>Quen</i> creates a magic shield around you, absorbing physical damage and blocking enemy attacks.
 
-<b>Igni</b> shoots a fireball, killing every enemy it encounters.
+<i>Igni</i> shoots a fireball, killing every enemy it encounters.
+
 
 **Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items) to gain points and be careful not to miss any Gwent cards! Avoid enemies by jumping over them, or jump on them to give them a taste of silver (boots).
 
