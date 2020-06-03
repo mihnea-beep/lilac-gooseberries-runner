@@ -16,17 +16,21 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 {
   IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
   TTF_Init();
+  // Mix_Init(MIX_INIT_FLAC);
   
   // quenShield.setDim(320, 240, 20, 20);
 
   Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 512);
-	Mix_AllocateChannels(4);
+	Mix_AllocateChannels(6);
 
   soundNames.push_back("Assets/geralt/ladder1.wav");
   soundNames.push_back("Assets/geralt/damage1.wav"); //witcher-fck.wav"); // too NSFW? or boring?
   soundNames.push_back("Assets/geralt/witcher_levelup.wav");
   soundNames.push_back("Assets/geralt/witcher-fck.wav");
   soundNames.push_back("Assets/geralt/sword1.wav");
+  soundNames.push_back("Assets/geralt/steam.wav");
+  soundNames.push_back("Assets/geralt/sand.wav");
+
 
 
 	sounds.push_back(Mix_LoadWAV(soundNames[0].c_str()));
@@ -34,6 +38,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[3].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[4].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[5].c_str()));
+	sounds.push_back(Mix_LoadWAV(soundNames[6].c_str()));
+
+
 
   lilacAmount.setColor(100, 100, 100);
   lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 30, Renderer);
@@ -47,9 +55,9 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   signsNo = 3;
   powerupsNo = 3;
   enemiesNo = 2;
-  starsNo = 500;
-  bgElementsNo = 1;
-  igniBulletsNo = 1;
+  starsNo = 500; // burn effect instead of stars 
+  bgElementsNo = 3; // TODO: add clouds (moving)
+  igniBulletsNo = 3;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
@@ -58,15 +66,16 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   stars = new SDL_Point[starsNo];
   igniBullets = new Bullet[igniBulletsNo];
 
-
   for(int i = 0; i < bgElementsNo; i++)
   {
     background[i].setH(84);
     background[i].setW(84);
-    background[i].setPos(500, 60);
+    background[i].setPos(rand() % 600, rand() % 100);
+    background[i].setImage("Assets/geralt/cloud01.png", Renderer);
+
   }
 
-  background[0].setImage(moonImage, Renderer);
+  background[0].setImage("Assets/geralt/cloud01.png", Renderer);
 
   // signs
 
@@ -437,6 +446,7 @@ void Scene::update()
       // if(enemies[i].isColliding(igniBullets[i].getX(), igniBullets[i].getY()))
         {
           enemyHit = true;
+          Mix_PlayChannel(-1, sounds[6], 0);
           // SDL_Delay(1000);
         }
       }
@@ -471,26 +481,28 @@ void Scene::update()
         enemies[i].setX(enemies[i].getX() - 3);
     }
 
-    if(starTimerActivated == true)
+    if(cloudTimerActivated == true) // clouds movement
 
-     for(int i = 0; i < starsNo; i++)
+     for(int i = 0; i < bgElementsNo; i++)
   {
     {
 
-      stars[i].x--;
-      starTimer = SDL_GetTicks();
-      starTimerActivated = false;
+      background[i].setX(background[i].getX() - 2);
+      cloudTimer = SDL_GetTicks();
+      cloudTimerActivated = false;
     }
     
-    if(stars[i].x <= 0)
+    if(background[i].getX() + 200 <= 0)
       {
-        stars[i].x = rand() % 640 + 640;
+        background[i].setX(rand() % 640 + 640);
+        background[i].setY(rand() % 100 + 20);
+
       }
   }
 
-      if(SDL_GetTicks() - starTimer >= 10)
+      if(SDL_GetTicks() - cloudTimer >= 10)
     {
-      starTimerActivated = true;
+      cloudTimerActivated = true;
     }
 
 
@@ -532,7 +544,8 @@ void Scene::render(SDL_Renderer* Renderer)
 
   // moon + background elements
 
-  draw(background[0], Renderer);
+  for(int i = 0; i < bgElementsNo; i++)
+   draw(background[i], Renderer);
 
   // lilac score text
 
@@ -644,8 +657,9 @@ void Scene::render(SDL_Renderer* Renderer)
        activeSign = noSign;
     }
 
-  if(igniBullets[0].getLaunch())
+  if(igniBullets[0].getLaunch())    // igni sound
   {
+   Mix_PlayChannel(-1, sounds[5], 0);
    igniBullets[0].setLaunch(false);
    igniBullets[0].setLife(true); 
   }
