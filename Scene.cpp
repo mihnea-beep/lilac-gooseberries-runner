@@ -85,8 +85,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   for(int i = 0; i < igniBulletsNo; i++)
   {
-    igniBullets[i].setH(50);
-    igniBullets[i].setW(50);
+    igniBullets[i].setH(30);
+    igniBullets[i].setW(30);
     // igniBullets[i].setX(50);
     // igniBullets[i].setY(50);
     igniBullets[i].setLife(false);
@@ -94,7 +94,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   }
 
   igniBullets[0].setImage("Assets/geralt/Igni.png", Renderer);
-
+  //  igniBullets[0].setH(20);
+  //  igniBullets[0].setW(20);
 
   // powerups
 
@@ -103,7 +104,6 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     powerups[i].setH(84);
     powerups[i].setW(84);
     powerups[i].setPos(200, 200);
-
   }
 
   powerups[0].setImage(lavenderImage, Renderer);
@@ -302,6 +302,7 @@ void Scene::update()
 
   pickedUp = false;
 
+  // character movement
   if(jumping)
   {
     if(!jumpHeightSet)
@@ -333,7 +334,6 @@ void Scene::update()
   }
 
   
-
   if(characters[0].getY() >= 480 - characters[0].getH())
   {
     characters[0].setY(480 - characters[0].getH());
@@ -421,6 +421,17 @@ void Scene::update()
 
         }
 
+        bool enemyHit = false;
+
+      if(igniBullets[0].lifestatus())
+      {
+       if(igniBullets[0].isColliding(enemies[i].getX() + 35, enemies[i].getY() + enemies[i].getH() / 2, 20))
+      // if(enemies[i].isColliding(igniBullets[i].getX(), igniBullets[i].getY()))
+        {
+          enemyHit = true;
+          // SDL_Delay(1000);
+        }
+      }
 
       if(landed)
         // if(isMelee)
@@ -436,13 +447,12 @@ void Scene::update()
                       {
                         enemies[i].setX(enemies[i].getX() - 1);
                       }
-                      
-                      cout << "DISTANCE" << endl;
+                      // cout << "DISTANCE" << endl;
                     }
                     
               }
 
-      if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i])) // type
+      if(enemies[i].getX() <= -120 || characters[0].isColliding(enemies[i]) || enemyHit) // type
         if(i % 2)
           enemies[i].setPos(rand() % characters[0].getX() + 640 + 100, 480 - enemies[i].getH());
         else
@@ -620,7 +630,7 @@ void Scene::render(SDL_Renderer* Renderer)
         {
           igniBullets[0].setLaunch(true); // bullet mechanic
           igniBullets[0].setX(characters[0].getX() + 30);
-          igniBullets[0].setY(characters[0].getY() - 30);
+          igniBullets[0].setY(characters[0].getY() + 30);
         }
     
        activeSign = noSign;
