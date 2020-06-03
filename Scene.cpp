@@ -32,9 +32,6 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   soundNames.push_back("Assets/geralt/sand.wav");
   soundNames.push_back("Assets/geralt/geralt_taunt01.wav");
 
-
-
-
 	sounds.push_back(Mix_LoadWAV(soundNames[0].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[1].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[2].c_str()));
@@ -42,12 +39,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 	sounds.push_back(Mix_LoadWAV(soundNames[4].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[5].c_str()));
 	sounds.push_back(Mix_LoadWAV(soundNames[6].c_str()));
-
-
+	sounds.push_back(Mix_LoadWAV(soundNames[7].c_str()));
 
   lilacAmount.setColor(100, 100, 100);
   lilacAmount.setText(to_string(score), "fonts/witcherfont.ttf", 30, Renderer);
-
 
   lilac.setColor(100, 100, 100);
   lilac.setText("Lilac", "fonts/witcherfont.ttf", 30, Renderer);
@@ -76,7 +71,6 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     background[i].setW(84);
     background[i].setPos(rand() % 600, rand() % 100);
     background[i].setImage("Assets/geralt/cloud01.png", Renderer);
-
   }
 
   background[0].setImage("Assets/geralt/cloud01.png", Renderer);
@@ -87,6 +81,10 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     gwentCards[i].setW(84);
     gwentCards[i].setImage("Assets/geralt/gwent_cards/gwent_yen01.png", Renderer);
   }
+
+  gwentCardSet = false;
+  gwentCardSpawned = false;
+
   // signs
 
   for(int i = 0; i < signsNo; i++)
@@ -399,6 +397,21 @@ void Scene::update()
 
   }
 
+  if(gwentCardSpawned)
+   for(int i = 0; i < gwentCardsNo; i++)
+   {
+     gwentCards[i].setX(gwentCards[i].getX() - 3);
+
+     if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 30, gwentCards[i].getX() + gwentCards[i].getW() / 2, gwentCards[i].getY() + gwentCards[i].getH() / 2, 60))
+       {
+         gwentCardSpawned = false;
+         Mix_PlayChannel(-1, sounds[7], 0);
+       }
+
+     if(gwentCards[i].getX() <= -20)
+      gwentCardSpawned = false;
+   }
+
     // enemies collision
 
     for(int i = 0; i < enemiesNo; i++)
@@ -516,12 +529,21 @@ void Scene::update()
       cloudTimerActivated = true;
     }
 
+    // cout << "Gwent card spawned: " << gwentCardSpawned << endl;
+    // cout << "Gwent card set: " << gwentCardSet << endl;
+
+
     if(!gwentCardSpawned)
-      if(score % 10 == 0)
-    {
-      gwentCards[0].setX(rand() % 640 + 640);
-      gwentCards[0].setY(rand() % 400 + 80);
-    }
+      // if(!gwentCardSet)
+        if(score != 0)
+         if(score % 51 == 0)
+      {
+        gwentCards[0].setX(rand() % 640 + 640);
+        gwentCards[0].setY(rand() % 400 + 80);
+        // gwentCardSet = true;
+        gwentCardSpawned = true;
+
+      }
 
 
   for(auto it = obstacles.begin(); it != obstacles.end(); it++)
@@ -606,7 +628,9 @@ void Scene::render(SDL_Renderer* Renderer)
     if(gwentCardSpawned)
       {
         draw(gwentCards[0], Renderer);
-        gwentCardSpawned = false;
+        characters[0].isColliding(characters[0].getW() / 2 - 30, characters[0].getH() / 2 + 30, gwentCards[0].getX() + gwentCards[0].getW() / 2, gwentCards[0].getY() + gwentCards[0].getH() / 2, 70, Renderer);
+
+        // gwentCardSpawned = false;
       }
 
 

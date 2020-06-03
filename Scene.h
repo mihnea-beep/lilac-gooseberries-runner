@@ -80,13 +80,14 @@ class Scene
   bool screenShake = false;
   bool landed = false;
   bool gwentCardSpawned = false;
+  bool gwentCardSet = false;
 
   Rect quenShield;
   vector<Player> characters;
 
   //GUI
   vector<Player> signs;
-
+  
   int powerupsNo;
   int signsNo;
   int enemiesNo;
