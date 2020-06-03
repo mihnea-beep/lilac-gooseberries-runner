@@ -22,7 +22,7 @@ Press 1, 2 or 3 to select a sign.
 
 To activate a sign, press 'A'.
 
-<b>Quen</b> creates a magic shield around you, absorbing physical damage.
+<b>Quen</b> creates a magic shield around you, absorbing physical damage and blocking enemy attacks.
 
 <b>Igni</b> shoots a fireball, killing every enemy it encounters.
 
