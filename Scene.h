@@ -79,6 +79,7 @@ class Scene
   bool isMelee = false;
   bool screenShake = false;
   bool landed = false;
+  bool gwentCardSpawned = false;
 
   Rect quenShield;
   vector<Player> characters;
@@ -92,11 +93,13 @@ class Scene
   int starsNo;
   int bgElementsNo;
   int igniBulletsNo;
+  int gwentCardsNo;
   
   Player* sign;
   Player* powerups;
   Player* enemies;
   Player* background;
+  Player* gwentCards;
   SDL_Point* stars;
   Bullet* igniBullets;
 

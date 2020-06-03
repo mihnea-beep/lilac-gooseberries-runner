@@ -30,6 +30,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   soundNames.push_back("Assets/geralt/sword1.wav");
   soundNames.push_back("Assets/geralt/steam.wav");
   soundNames.push_back("Assets/geralt/sand.wav");
+  soundNames.push_back("Assets/geralt/geralt_taunt01.wav");
+
 
 
 
@@ -58,6 +60,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   starsNo = 500; // burn effect instead of stars 
   bgElementsNo = 3; // TODO: add clouds (moving)
   igniBulletsNo = 3;
+  gwentCardsNo = 1;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
@@ -65,6 +68,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   background = new Player[bgElementsNo];
   stars = new SDL_Point[starsNo];
   igniBullets = new Bullet[igniBulletsNo];
+  gwentCards = new Player[gwentCardsNo];
 
   for(int i = 0; i < bgElementsNo; i++)
   {
@@ -77,6 +81,12 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   background[0].setImage("Assets/geralt/cloud01.png", Renderer);
 
+  for(int i = 0; i < gwentCardsNo; i++)
+  {
+    gwentCards[i].setH(84);
+    gwentCards[i].setW(84);
+    gwentCards[i].setImage("Assets/geralt/gwent_cards/gwent_yen01.png", Renderer);
+  }
   // signs
 
   for(int i = 0; i < signsNo; i++)
@@ -447,6 +457,7 @@ void Scene::update()
         {
           enemyHit = true;
           Mix_PlayChannel(-1, sounds[6], 0);
+          // igniBullets[0].setLife(false);
           // SDL_Delay(1000);
         }
       }
@@ -503,6 +514,13 @@ void Scene::update()
       if(SDL_GetTicks() - cloudTimer >= 10)
     {
       cloudTimerActivated = true;
+    }
+
+    if(!gwentCardSpawned)
+      if(score % 10 == 0)
+    {
+      gwentCards[0].setX(rand() % 640 + 640);
+      gwentCards[0].setY(rand() % 400 + 80);
     }
 
 
@@ -583,6 +601,15 @@ void Scene::render(SDL_Renderer* Renderer)
       draw(powerups[i], Renderer);
     }
 
+  
+
+    if(gwentCardSpawned)
+      {
+        draw(gwentCards[0], Renderer);
+        gwentCardSpawned = false;
+      }
+
+
   // for(int i = 0; i < obstacles.size(); i++) // parallaxing TODO: background
   // {
   //   obstacles[i].setX(obstacles[i].getX() - 3); 
@@ -659,7 +686,7 @@ void Scene::render(SDL_Renderer* Renderer)
 
   if(igniBullets[0].getLaunch())    // igni sound
   {
-   Mix_PlayChannel(-1, sounds[5], 0);
+   Mix_PlayChannelTimed(-1, sounds[5], 0, 2000);
    igniBullets[0].setLaunch(false);
    igniBullets[0].setLife(true); 
   }
