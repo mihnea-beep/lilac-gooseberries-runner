@@ -440,7 +440,7 @@ void Scene::update()
             jumpHeightSet = false;
             monsterScore++;
             cout << "Silver boots are for monsters!" << endl;
-            cout << "Monsters slain: " << monsterScore << endl;
+            cout << "Slain monsters: " << monsterScore << endl;
             Mix_PlayChannel(-1, sounds[4], 0);
           }
           else
@@ -478,6 +478,9 @@ void Scene::update()
         {
           enemyHit = true;
           Mix_PlayChannel(-1, sounds[6], 0);
+          monsterScore++;
+          cout << "Monster burnt!" << endl;
+          cout << "Slain monsters: " << monsterScore << endl;
           // igniBullets[0].setLife(false);
           // SDL_Delay(1000);
         }
