@@ -177,7 +177,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   // }
 
   ofstream outputFile;
-  outputFile.open("SDL_IMG_error_log.txt", ios::app);
+  outputFile.open("SDL_IMG_error_log.txt");
 
   for(int i = 0; i < enemiesNo; i++)
   {

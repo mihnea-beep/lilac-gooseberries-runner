@@ -17,7 +17,7 @@ Message::Message(SDL_Renderer* renderer, string text)
 
 }
 
-void Message::setText(string text, string font, uint16_t size, SDL_Renderer* renderer)
+void Message::setText(string text, string font, uint16_t size, SDL_Renderer* renderer, string mode)
 {
     //msg_color = {0, 0, 100};
 
@@ -50,7 +50,10 @@ void Message::setText(string text, string font, uint16_t size, SDL_Renderer* ren
 	//if(msg_surface != NULL)
 	//	SDL_FreeSurface(msg_surface);
 
-    msg_surface = TTF_RenderText_Solid(msg_font, text.c_str(), msg_color);
+    if(mode == "blended")
+        msg_surface = TTF_RenderText_Blended_Wrapped(msg_font, text.c_str(), {0, 0, 0}, 630); 
+    else
+        msg_surface = TTF_RenderText_Solid(msg_font, text.c_str(), msg_color);
 
     msg_texture = SDL_CreateTextureFromSurface(renderer, msg_surface);
 

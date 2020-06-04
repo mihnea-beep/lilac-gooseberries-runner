@@ -13,6 +13,7 @@ class PauseScene: public GameScene
   bool PauseScene_running = false;
   Message pauseMessage;
   bool pauseMessageSet = false;
+  Message randomFactMessage;
 
   public:
 

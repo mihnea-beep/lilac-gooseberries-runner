@@ -26,7 +26,7 @@ public:
 
     Message(SDL_Renderer* renderer, string text);
 
-    void setText(string text, string font, uint16_t size, SDL_Renderer* renderer);
+    void setText(string text, string font, uint16_t size, SDL_Renderer* renderer, string mode = "");
     void display(int x, int y, int w, int h, SDL_Renderer* renderer);
     void setColor(int, int, int);
 
