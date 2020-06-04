@@ -327,6 +327,7 @@ void Scene::update()
   pickedUp = false;
 
   // character movement
+
   if(jumping)
   {
     if(!jumpHeightSet)
@@ -401,12 +402,7 @@ void Scene::update()
   }
 
   if(gwentCardSpawned)
-  //  for(int i = 0; i < gwentCardsNo; i++)
    {
-    //  int i = rand() % 2 + 1;
-    
-    //  currentCardNo = 1;
-
      gwentCards[currentCardNo].setX(gwentCards[currentCardNo].getX() - 3);
 
      if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 40, gwentCards[currentCardNo].getX() + gwentCards[currentCardNo].getW() / 2, gwentCards[currentCardNo].getY() + gwentCards[currentCardNo].getH() / 2, 70))
@@ -421,7 +417,6 @@ void Scene::update()
    }
 
     // enemies collision
-
     for(int i = 0; i < enemiesNo; i++)
     {
         if(characters[0].isColliding(enemies[i]))
