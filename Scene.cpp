@@ -251,6 +251,13 @@ void Scene::checkInput()
 
                 break;
 
+                case SDLK_p:
+
+                cout << "Paused" << endl;
+                Pause.setRunning(true);
+
+                break;
+                
                 case SDLK_s:
 
                 score++;
@@ -811,6 +818,8 @@ void Scene::loop(SDL_Renderer* Renderer)
        SDL_Delay(delay);
       //  cout << delay << endl;
       }
+      // check if pause
+      checkPause(Renderer);
 
       // cout << 1000 / 16 << endl << endl; 
     //time
@@ -824,6 +833,20 @@ void Scene::loadScene(SDL_Renderer* Renderer)
 
     loadRes(Renderer);
     loop(Renderer);
+}
+
+void Scene::checkPause(SDL_Renderer* Renderer)
+{
+  // bool scenePaused = true;
+
+  // if(scenePaused) // while scenePaused
+  // {
+    // SDL_Delay(1000);
+    // pause screen - text and input
+    // cout << "PAUSE" << endl; 
+    // Pause.setRunning(true);
+    Pause.loadPauseScene(Renderer);
+  // }
 }
 
 void Scene::animate(Player& p, int frames_no, string frame_name, SDL_Renderer* Renderer)

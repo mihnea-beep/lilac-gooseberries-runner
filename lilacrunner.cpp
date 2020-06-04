@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include "Scene.h"
-
+// #include "SceneHandler.h"
 
 using namespace std;
 
@@ -10,6 +10,8 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     /* code */
+
+    // SceneHandler LilacRunner;
 
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* window;

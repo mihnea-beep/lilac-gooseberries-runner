@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Message.h"
 #include "Bullet.h"
+#include "PauseScene.h"
 //#include "GUI.h"
 using namespace std;
 
@@ -117,6 +118,8 @@ class Scene
   Message lilac;
   Message lilacAmount;
 
+  PauseScene Pause;
+
   public:
 
     Scene();
@@ -128,6 +131,7 @@ class Scene
     virtual void render(SDL_Renderer*);
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadScene(SDL_Renderer* Renderer);
+    virtual void checkPause(SDL_Renderer* Renderer);
 
     virtual void draw(Player& p, SDL_Renderer* Renderer);
 
