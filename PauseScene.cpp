@@ -16,7 +16,10 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setColor(0, 0, 0);
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 50, Renderer);
   randomFactMessage.setColor(0, 0, 0);
-  int randomLine = rand() % 6;
+
+  int factsNo = 16;
+
+  int randomLine = rand() % factsNo;
 
   ifstream factsFile("facts.txt");
   string line;
@@ -36,9 +39,11 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
         
       }
 
+      factsFile.close();
+
       cout << randomFact << endl;
 
-    randomFactMessage.setText(randomFact, "fonts/witcherfont.ttf", 20, Renderer, "blended");
+    randomFactMessage.setText(randomFact, "fonts/witcherfont.ttf", 30, Renderer, "blended", 630);
 
 }
 
@@ -103,7 +108,7 @@ void PauseScene::render(SDL_Renderer* Renderer)
   if(!pauseMessageSet)
   {
     pauseMessage.display(320 - 200, 200, 400, 60, Renderer);
-    // randomFactMessage.display(10, 300, 600, 30, Renderer);
+    randomFactMessage.display(10, 300, 630, 30, Renderer, "blended");
 
     SDL_RenderPresent(Renderer);
 

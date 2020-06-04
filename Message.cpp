@@ -17,7 +17,12 @@ Message::Message(SDL_Renderer* renderer, string text)
 
 }
 
-void Message::setText(string text, string font, uint16_t size, SDL_Renderer* renderer, string mode)
+TTF_Font* Message::getFont()
+{
+    return msg_font;
+}
+
+void Message::setText(string text, string font, uint16_t size, SDL_Renderer* renderer, string mode, int wrapLength)
 {
     //msg_color = {0, 0, 100};
 
@@ -51,13 +56,15 @@ void Message::setText(string text, string font, uint16_t size, SDL_Renderer* ren
 	//	SDL_FreeSurface(msg_surface);
 
     if(mode == "blended")
-        msg_surface = TTF_RenderText_Blended_Wrapped(msg_font, text.c_str(), {0, 0, 0}, 630); 
+        msg_surface = TTF_RenderText_Blended_Wrapped(msg_font, text.c_str(), {0, 0, 0}, wrapLength); 
     else
         msg_surface = TTF_RenderText_Solid(msg_font, text.c_str(), msg_color);
 
     msg_texture = SDL_CreateTextureFromSurface(renderer, msg_surface);
 
     SDL_FreeSurface(msg_surface);
+
+    messageText = text;
 
 	//TTF_CloseFont(msg_font); instacrash :D
 
@@ -92,14 +99,46 @@ void Message::Free()
 	//	TTF_CloseFont(msg_font);
 }
 
-void Message::display(int x, int y, int w, int h, SDL_Renderer* renderer)
+void Message::display(int x, int y, int w, int h, SDL_Renderer* renderer, string mode)
 {
     msgRc.x = x;
     msgRc.y = y;
-    msgRc.w = w;
-    msgRc.h = h;
 
-    SDL_RenderCopy(renderer, msg_texture, NULL, &msgRc);
+     if(mode == "blended")
+    {
+        int width, height;
+        TTF_SizeText(msg_font, messageText.c_str(), &width, &height);
+        // int multiply = round((width / 500) + 0.5);
+        // if(multiply >= 2)
+            // msgRc.h = height * multiply;
+        // else
+
+        SDL_QueryTexture(getTexture(), NULL, NULL, &width, &height);
+
+            msgRc.h = height;
+
+        msgRc.w = width;
+
+
+    }
+    else
+    {
+        msgRc.w = w;
+        msgRc.h = h;
+    }
+
+    // if(mode == "blended")
+        // SDL_RenderCopy(renderer, msg_texture, NULL, NULL);
+    // else
+    // {
+        SDL_RenderCopy(renderer, msg_texture, NULL, &msgRc);
+    // }
+    
+}
+
+SDL_Texture* Message::getTexture()
+{
+    return msg_texture;
 }
 
 Message::~Message()
