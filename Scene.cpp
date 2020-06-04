@@ -553,7 +553,7 @@ void Scene::update()
         currentCardNo = rand() % 2;
         // gwentCards[0].setImage 
         gwentCards[currentCardNo].setX(rand() % 640 + 640);
-        gwentCards[currentCardNo].setY(rand() % 400 + 60);
+        gwentCards[currentCardNo].setY(rand() % 400 + 30);
         // gwentCardSet = true;
         gwentCardSpawned = true;
 
