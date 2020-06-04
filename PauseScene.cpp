@@ -17,7 +17,7 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 50, Renderer);
   randomFactMessage.setColor(0, 0, 0);
 
-  int factsNo = 16;
+  int factsNo = 8;
 
   int randomLine = rand() % factsNo;
 
