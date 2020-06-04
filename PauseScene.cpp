@@ -2,6 +2,9 @@
 #include "GUI.h"
 #include "PauseScene.h"
 #include "Message.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 PauseScene::PauseScene()
 {
@@ -12,6 +15,28 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
 {
   pauseMessage.setColor(0, 0, 0);
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 50, Renderer);
+  int randomLine = rand() % 6;
+
+  ifstream factsFile("facts.txt");
+  string line;
+  int lineNo = 0;
+  string randomFact;
+
+  if(factsFile.is_open())
+    while(getline(factsFile, line))
+      {
+        lineNo++;
+
+        if(lineNo == randomLine)
+        {
+          randomFact = line;
+          break;
+        }
+        
+      }
+
+      cout << randomFact << endl;
+
 }
 
 void PauseScene::Init(SDL_Renderer* Renderer)
@@ -126,5 +151,6 @@ void PauseScene::free()
   pauseMessage.Free();
   // delete pauseMessage;
   pauseMessageSet = false;
+  PauseScene_running = false;
 
 }

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <SDL2/SDL_image.h>
+#include <fstream>
 using namespace std;
 
 Scene::Scene()
@@ -175,6 +176,9 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   //                                                                         // the bug has something to do with signs -- not sure? vectors
   // }
 
+  ofstream outputFile;
+  outputFile.open("SDL_IMG_error_log.txt", ios::app);
+
   for(int i = 0; i < enemiesNo; i++)
   {
     cout << enemies[i].getName() << endl;
@@ -192,6 +196,11 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     stars[i].x = rand() % 640;
     stars[i].y = rand() % 300; 
   }
+
+
+  outputFile << IMG_GetError() << endl;
+
+
 }
 
 void Scene::draw(Player &p, SDL_Renderer* Renderer)
@@ -845,7 +854,8 @@ void Scene::checkPause(SDL_Renderer* Renderer)
     // pause screen - text and input
     // cout << "PAUSE" << endl; 
     // Pause.setRunning(true);
-    Pause.loadPauseScene(Renderer);
+    if(Pause.getRunning() == true)
+     Pause.loadPauseScene(Renderer);
   // }
 }
 
