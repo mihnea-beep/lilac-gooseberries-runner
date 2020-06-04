@@ -1,6 +1,7 @@
 // #include "PauseScene.h"
 #include "GUI.h"
 #include "PauseScene.h"
+#include "Message.h"
 
 PauseScene::PauseScene()
 {
@@ -9,7 +10,8 @@ PauseScene::PauseScene()
 
 void PauseScene::loadRes(SDL_Renderer* Renderer)
 {
-
+  pauseMessage.setColor(0, 0, 0);
+  pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 50, Renderer);
 }
 
 void PauseScene::Init(SDL_Renderer* Renderer)
@@ -70,8 +72,14 @@ void PauseScene::render(SDL_Renderer* Renderer)
   // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
   // SDL_RenderClear(Renderer);
 
+  if(!pauseMessageSet)
+  {
+    pauseMessage.display(320 - 200, 200, 400, 60, Renderer);
 
-  // SDL_RenderPresent(Renderer);
+    SDL_RenderPresent(Renderer);
+
+    pauseMessageSet = true;
+  }
 
 }
 
@@ -84,14 +92,14 @@ void PauseScene::loop(SDL_Renderer* Renderer)
     update();
     render(Renderer);
     //time
-
+    SDL_Delay(30);
   }
 
+  free();
 }
 
 void PauseScene::loadPauseScene(SDL_Renderer* Renderer)
 {
-
     loadRes(Renderer);
     loop(Renderer);
 }
@@ -113,5 +121,10 @@ void PauseScene::setRunning(bool x)
 
 void PauseScene::free()
 {
+
+  // delete[] pauseMessage;
+  pauseMessage.Free();
+  // delete pauseMessage;
+  pauseMessageSet = false;
 
 }

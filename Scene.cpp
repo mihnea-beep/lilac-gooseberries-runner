@@ -254,7 +254,7 @@ void Scene::checkInput()
                 case SDLK_p:
 
                 cout << "Paused" << endl;
-                Pause.setRunning(true);
+                 Pause.setRunning(true);
 
                 break;
                 
