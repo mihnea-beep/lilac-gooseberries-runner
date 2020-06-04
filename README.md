@@ -26,6 +26,5 @@ To activate a sign, press 'A'.
 
 <i>Igni</i> shoots a fireball, killing every enemy it encounters.
 
-
 **Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items) to gain points and be careful not to miss any Gwent cards! Avoid enemies by jumping over them, or jump on them to give them a taste of silver (boots).
 
