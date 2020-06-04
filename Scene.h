@@ -95,6 +95,7 @@ class Scene
   int bgElementsNo;
   int igniBulletsNo;
   int gwentCardsNo;
+  int currentCardNo;
   
   Player* sign;
   Player* powerups;

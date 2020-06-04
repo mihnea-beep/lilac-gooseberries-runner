@@ -55,7 +55,7 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   starsNo = 500; // burn effect instead of stars 
   bgElementsNo = 5; // TODO: add clouds (moving)
   igniBulletsNo = 3;
-  gwentCardsNo = 1;
+  gwentCardsNo = 2;
 
   sign = new Player[signsNo];
   powerups = new Player[powerupsNo];
@@ -79,11 +79,14 @@ void Scene::loadRes(SDL_Renderer* Renderer)
   {
     gwentCards[i].setH(84);
     gwentCards[i].setW(84);
-    gwentCards[i].setImage("Assets/geralt/gwent_cards/gwent_yen01.png", Renderer);
+    gwentCards[i].setImage("Assets/geralt/gwent_cards/gwent_yen" + to_string(i) + ".png", Renderer);
+    cout << SDL_GetError() << endl;
+    // cout << "Assets/geralt/gwent_cards/gwent_yen" + to_string(i) + ".png" << endl;
   }
 
   gwentCardSet = false;
   gwentCardSpawned = false;
+  currentCardNo = 0;
 
   // signs
 
@@ -398,17 +401,22 @@ void Scene::update()
   }
 
   if(gwentCardSpawned)
-   for(int i = 0; i < gwentCardsNo; i++)
+  //  for(int i = 0; i < gwentCardsNo; i++)
    {
-     gwentCards[i].setX(gwentCards[i].getX() - 3);
+    //  int i = rand() % 2 + 1;
+    
+    //  currentCardNo = 1;
 
-     if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 40, gwentCards[i].getX() + gwentCards[i].getW() / 2, gwentCards[i].getY() + gwentCards[i].getH() / 2, 70))
+     gwentCards[currentCardNo].setX(gwentCards[currentCardNo].getX() - 3);
+
+     if(characters[0].isColliding(characters[0].getW() / 2 - 20, characters[0].getH() / 2 + 40, gwentCards[currentCardNo].getX() + gwentCards[currentCardNo].getW() / 2, gwentCards[currentCardNo].getY() + gwentCards[currentCardNo].getH() / 2, 70))
        {
          gwentCardSpawned = false;
          Mix_PlayChannel(-1, sounds[7], 0);
+        //  currentCardNo++;
        }
 
-     if(gwentCards[i].getX() <= -200)
+     if(gwentCards[currentCardNo].getX() <= -200)
       gwentCardSpawned = false;
    }
 
@@ -537,9 +545,10 @@ void Scene::update()
         if(score != 0)
          if(score % 51 == 0)
       {
+        currentCardNo = rand() % 2;
         // gwentCards[0].setImage 
-        gwentCards[0].setX(rand() % 640 + 640);
-        gwentCards[0].setY(rand() % 400 + 60);
+        gwentCards[currentCardNo].setX(rand() % 640 + 640);
+        gwentCards[currentCardNo].setY(rand() % 400 + 60);
         // gwentCardSet = true;
         gwentCardSpawned = true;
 
@@ -627,7 +636,7 @@ void Scene::render(SDL_Renderer* Renderer)
 
     if(gwentCardSpawned)
       {
-        draw(gwentCards[0], Renderer);
+        draw(gwentCards[currentCardNo], Renderer);
         // characters[0].isColliding(characters[0].getW() / 2 - 40, characters[0].getH() / 2 + 30, gwentCards[0].getX() + gwentCards[0].getW() / 2, gwentCards[0].getY() + gwentCards[0].getH() / 2, 75, Renderer);
 
         // gwentCardSpawned = false;
