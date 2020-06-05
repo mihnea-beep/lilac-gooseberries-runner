@@ -14,7 +14,7 @@ PauseScene::PauseScene()
 void PauseScene::loadRes(SDL_Renderer* Renderer)
 {
   pauseMessage.setColor(0, 0, 0);
-  pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 50, Renderer);
+  pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
   randomFactMessage.setColor(0, 0, 0);
 
   int factsNo = 9;
@@ -107,7 +107,7 @@ void PauseScene::render(SDL_Renderer* Renderer)
 
   if(!pauseMessageSet)
   {
-    pauseMessage.display(320 - 200, 200, 400, 60, Renderer);
+    pauseMessage.display(320 - 248, 200, 400, 60, Renderer, "blended");
     randomFactMessage.display(10, 300, 630, 30, Renderer, "blended");
 
     SDL_RenderPresent(Renderer);

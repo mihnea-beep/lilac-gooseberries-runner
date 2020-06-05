@@ -119,6 +119,7 @@ void Message::display(int x, int y, int w, int h, SDL_Renderer* renderer, string
 
         msgRc.w = width;
 
+        // cout << msgRc.w << endl;
 
     }
     else
