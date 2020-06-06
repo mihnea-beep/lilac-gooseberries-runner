@@ -120,6 +120,7 @@ class Scene
 
   PauseScene Pause;
 
+
   public:
 
     Scene();
@@ -132,6 +133,7 @@ class Scene
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadScene(SDL_Renderer* Renderer);
     virtual void checkPause(SDL_Renderer* Renderer);
+    // virtual void checkInventory(SDL_Renderer* Renderer);
 
     virtual void draw(Player& p, SDL_Renderer* Renderer);
 

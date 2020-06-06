@@ -267,7 +267,14 @@ void Scene::checkInput()
                 Pause.setRunning(true);
 
                 break;
-                
+
+               case SDLK_i:
+
+               cout << "Inventory" << endl;
+
+               break; 
+               
+               
                 case SDLK_s:
 
                 score++;
