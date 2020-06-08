@@ -8,7 +8,9 @@ InventoryScene::InventoryScene()
 
 void InventoryScene::loadRes(SDL_Renderer* Renderer)
 {
-  invMessage.setColor(0, 0, 0);
+  // invMessage.setColor(0, 0, 0);
+  invMessage.setColor(255, 255, 255);
+  
   invMessage.setText("Inventory", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
 }
 
@@ -68,10 +70,11 @@ void InventoryScene::update()
 
 void InventoryScene::render(SDL_Renderer* Renderer)
 {
-  // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
-  // SDL_RenderClear(Renderer);
+  // SDL_SetRenderDrawColor(Renderer, 68, 70, 68, 0);
+  SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+  SDL_RenderClear(Renderer);
 
-  invMessage.display(200, 200, 300, 300, Renderer, "blended");
+  invMessage.display(250, 150, 300, 300, Renderer, "blended");
 
 
   SDL_RenderPresent(Renderer);

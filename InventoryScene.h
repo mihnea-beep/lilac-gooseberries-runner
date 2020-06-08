@@ -14,6 +14,8 @@ class InventoryScene
   bool isOpen = false;
   bool invSet = false;
   Message invMessage;
+
+  // Player* geralt;
   
   int maxItemsNo = 5;
 
