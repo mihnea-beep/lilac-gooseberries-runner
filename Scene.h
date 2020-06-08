@@ -9,6 +9,7 @@
 #include "Message.h"
 #include "Bullet.h"
 #include "PauseScene.h"
+#include "InventoryScene.h"
 //#include "GUI.h"
 using namespace std;
 
@@ -119,6 +120,7 @@ class Scene
   Message lilacAmount;
 
   PauseScene Pause;
+  InventoryScene Inventory;
 
 
   public:
@@ -133,7 +135,7 @@ class Scene
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadScene(SDL_Renderer* Renderer);
     virtual void checkPause(SDL_Renderer* Renderer);
-    // virtual void checkInventory(SDL_Renderer* Renderer);
+    virtual void checkInventory(SDL_Renderer* Renderer);
 
     virtual void draw(Player& p, SDL_Renderer* Renderer);
 

@@ -1,23 +1,24 @@
-#include "GameScene.h"
+#include "InventoryScene.h"
 #include "GUI.h"
 
-GameScene::GameScene()
+InventoryScene::InventoryScene()
 {
 
 }
 
-void GameScene::loadRes(SDL_Renderer* Renderer)
+void InventoryScene::loadRes(SDL_Renderer* Renderer)
 {
-
+  invMessage.setColor(0, 0, 0);
+  invMessage.setText("Inventory", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
 }
 
-void GameScene::Init(SDL_Renderer* Renderer)
+void InventoryScene::Init(SDL_Renderer* Renderer)
 {
     loadRes(Renderer);
 }
 
 
-void GameScene::checkInput()
+void InventoryScene::checkInput()
 {
 
   SDL_Event ev;
@@ -27,18 +28,27 @@ void GameScene::checkInput()
           if(ev.type == SDL_QUIT)
              {
                  cout<<"User pressed 'exit'!";
-                 GameScene_running = false;
+                 InventoryScene_running = false;
              }
 
             if(ev.type == SDL_KEYDOWN)
             {
               switch(ev.key.keysym.sym)
               {
+
+                case SDLK_i:
+
+                cout << "Inventory exited" << endl;
+
+                InventoryScene_running = false;
+
+                break;
+
                 case SDLK_ESCAPE:
 
                 cout<<"User pressed 'escape'!";
 
-                GameScene_running = false;
+                InventoryScene_running = false;
 
                 break;
 
@@ -51,58 +61,62 @@ void GameScene::checkInput()
 
 }
 
-void GameScene::update()
+void InventoryScene::update()
 {
 
 }
 
-void GameScene::render(SDL_Renderer* Renderer)
+void InventoryScene::render(SDL_Renderer* Renderer)
 {
-  SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
-  SDL_RenderClear(Renderer);
+  // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
+  // SDL_RenderClear(Renderer);
+
+  invMessage.display(200, 200, 300, 300, Renderer, "blended");
 
 
   SDL_RenderPresent(Renderer);
 
 }
 
-void GameScene::loop(SDL_Renderer* Renderer)
+void InventoryScene::loop(SDL_Renderer* Renderer)
 {
-  while(GameScene_running)
+  while(InventoryScene_running)
   {
      //time
     checkInput();
     update();
     render(Renderer);
+
+    SDL_Delay(33);
     //time
 
   }
 
 }
 
-void GameScene::loadGameScene(SDL_Renderer* Renderer)
+void InventoryScene::loadInventoryScene(SDL_Renderer* Renderer)
 {
 
     loadRes(Renderer);
     loop(Renderer);
 }
 
-GameScene::~GameScene()
+InventoryScene::~InventoryScene()
 {
 
 }
 
-bool GameScene::getRunning()
+bool InventoryScene::getRunning()
 {
-  return GameScene_running;
+  return InventoryScene_running;
 }
 
-void GameScene::setRunning(bool x)
+void InventoryScene::setRunning(bool x)
 {
-  GameScene_running = x;
+  InventoryScene_running = x;
 }
 
-void GameScene::free()
+void InventoryScene::free()
 {
-
+  invMessage.Free();
 }

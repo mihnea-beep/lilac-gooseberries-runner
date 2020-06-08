@@ -272,6 +272,8 @@ void Scene::checkInput()
 
                cout << "Inventory" << endl;
 
+               Inventory.setRunning(true);
+
                break; 
                
                
@@ -838,6 +840,8 @@ void Scene::loop(SDL_Renderer* Renderer)
       // check if pause
       checkPause(Renderer);
 
+      checkInventory(Renderer);
+
       // cout << 1000 / 16 << endl << endl; 
     //time
 
@@ -865,6 +869,12 @@ void Scene::checkPause(SDL_Renderer* Renderer)
     if(Pause.getRunning() == true)
      Pause.loadPauseScene(Renderer);
   // }
+}
+
+void Scene::checkInventory(SDL_Renderer* Renderer)
+{
+  if(Inventory.getRunning())
+    Inventory.loadInventoryScene(Renderer);
 }
 
 void Scene::animate(Player& p, int frames_no, string frame_name, SDL_Renderer* Renderer)
