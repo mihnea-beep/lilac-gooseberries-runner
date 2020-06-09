@@ -17,6 +17,21 @@ Message::Message(SDL_Renderer* renderer, string text)
 
 }
 
+// void Message::setFontSize(int fontSize)
+// {
+//     this->fontSize = fontSize;
+    
+//     if(msg_font != NULL)
+//         TTF_CloseFont(msg_font);
+    
+//     TTF_OpenFont(msg_font, this->fontSize);
+// }
+
+void Message::setText(string text)
+{
+    messageText = text;
+}
+
 TTF_Font* Message::getFont()
 {
     return msg_font;
@@ -41,6 +56,7 @@ void Message::setText(string text, string font, uint16_t size, SDL_Renderer* ren
 
    // msg_surface = NULL;
 
+   fontSize = size;
 
     msg_font = TTF_OpenFont(font.c_str(), size);
 

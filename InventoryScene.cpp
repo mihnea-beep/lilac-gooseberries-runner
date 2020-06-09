@@ -10,8 +10,13 @@ void InventoryScene::loadRes(SDL_Renderer* Renderer)
 {
   // invMessage.setColor(0, 0, 0);
   invMessage.setColor(255, 255, 255);
-  
+
   invMessage.setText("Inventory", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+
+  geralt = new Player[1];
+
+  // geralt[0].setImage
+
 }
 
 void InventoryScene::Init(SDL_Renderer* Renderer)
@@ -76,7 +81,6 @@ void InventoryScene::render(SDL_Renderer* Renderer)
 
   invMessage.display(250, 150, 300, 300, Renderer, "blended");
 
-
   SDL_RenderPresent(Renderer);
 
 }
@@ -122,4 +126,8 @@ void InventoryScene::setRunning(bool x)
 void InventoryScene::free()
 {
   invMessage.Free();
+
+  geralt[0].Free();
+  
+  delete [] geralt;
 }

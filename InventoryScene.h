@@ -15,7 +15,9 @@ class InventoryScene
   bool invSet = false;
   Message invMessage;
 
-  // Player* geralt;
+  int fontSize = 30;
+
+  Player* geralt;
   
   int maxItemsNo = 5;
 
