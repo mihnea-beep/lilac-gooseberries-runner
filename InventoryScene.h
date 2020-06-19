@@ -25,7 +25,7 @@ class InventoryScene
   int fontSize = 30;
   int typeRowPos = 0;
   int inventorySelected = 0;
-  int optionsNo = 3;
+  int optionsNo = 2;
 
   enum menuOptions
   {

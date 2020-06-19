@@ -113,6 +113,12 @@ void Message::Free()
 
     msg_texture = NULL;
 
+    if(msg_font != NULL)
+        TTF_CloseFont(getFont());
+    
+    msg_font = NULL;
+
+
    // if(msg_surface != NULL)
      //   SDL_FreeSurface(msg_surface);
     //msg_surface = NULL;
@@ -174,13 +180,15 @@ SDL_Texture* Message::getTexture()
 
 Message::~Message()
 {
-    if(msg_surface != NULL)
-        delete [] msg_surface;
+    // if(msg_surface != NULL)
+    //     delete [] msg_surface;
 
-    if(msg_texture != NULL)
-        delete [] msg_texture;
+    // if(msg_texture != NULL)
+    //     delete [] msg_texture;
 
-    if(msg_font != NULL)
-        delete [] msg_font;
+    // if(msg_font != NULL)
+    //     delete [] msg_font;
+
+    Free();
 
 }

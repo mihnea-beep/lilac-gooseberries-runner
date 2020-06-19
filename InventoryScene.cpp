@@ -239,11 +239,14 @@ void InventoryScene::free()
 {
   invMessage.Free();
   invMessage.clearText();
+  for(int i = 0; i < 2; i++)
+    optionsMessage[i].Free();
   words.clear();
   letters.clear();
   geralt[0].Free();
   
   delete [] geralt;
+  delete [] optionsMessage;
 
   inventorySelected = 0;
   typePos = 0;
