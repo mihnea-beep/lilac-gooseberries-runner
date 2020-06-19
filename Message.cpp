@@ -32,6 +32,11 @@ void Message::setText(string text)
     messageText = text;
 }
 
+string Message::getText()
+{
+    return messageText;
+}
+
 TTF_Font* Message::getFont()
 {
     return msg_font;
@@ -79,6 +84,9 @@ void Message::setText(string text, string font, uint16_t size, SDL_Renderer* ren
 
     msg_texture = SDL_CreateTextureFromSurface(renderer, msg_surface);
 
+    if(msg_surface == NULL)
+        cout << msg_surface << endl;
+
     SDL_FreeSurface(msg_surface);
 
     messageText = text;
@@ -91,6 +99,11 @@ void Message::setText(string text, string font, uint16_t size, SDL_Renderer* ren
 void Message::setColor(int r, int g, int b)
 {
     msg_color = {r, g, b};
+}
+
+void Message::clearText()
+{
+    setText("");
 }
 
 void Message::Free()

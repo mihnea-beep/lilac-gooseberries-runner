@@ -43,6 +43,9 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
 
       cout << randomFact << endl;
 
+    typeRandomFactMessage = randomFact;
+    typePos = 0;
+
     randomFactMessage.setText(randomFact, "fonts/witcherfont.ttf", 20, Renderer, "blended", 630);
 
 }

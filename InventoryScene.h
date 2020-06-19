@@ -14,8 +14,16 @@ class InventoryScene
   bool isOpen = false;
   bool invSet = false;
   Message invMessage;
+  string typeInvMessage;
 
+  vector<string> words;
+  vector<string> letters;
+
+  int typePos = 0;
   int fontSize = 30;
+  int typeRowPos = 0;
+
+  int inventorySelected = 0;
 
   Player* geralt;
   

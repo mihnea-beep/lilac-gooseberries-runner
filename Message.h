@@ -35,6 +35,8 @@ public:
     void setColor(int, int, int);
     // void setFontSize(int size);
     void setText(string text);
+    string getText();
+    void clearText();
 
     TTF_Font* getFont();
     SDL_Texture* getTexture();

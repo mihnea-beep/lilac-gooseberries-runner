@@ -14,6 +14,8 @@ class PauseScene: public GameScene
   Message pauseMessage;
   bool pauseMessageSet = false;
   Message randomFactMessage;
+  string typeRandomFactMessage;
+  int typePos = 0;
 
   public:
 
