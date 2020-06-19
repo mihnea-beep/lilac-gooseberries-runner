@@ -9,18 +9,28 @@ InventoryScene::InventoryScene()
 void InventoryScene::loadRes(SDL_Renderer* Renderer)
 {
   TTF_Init();
-  // invMessage.setColor(0, 0, 0);
-  invMessage.setColor(255, 255, 255);
 
+  optionsMessage = new Message[optionsNo];
+  menuOptions = statsOption;
+
+  invMessage.setColor(255, 255, 255);
   invMessage.setText("Inventory", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+
+  optionsMessage[0].setColor(255, 255, 255);
+  optionsMessage[0].setText("Character", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+  optionsMessage[1].setText("Alchemy", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+
+
+  // menuOptions = inventoryOption;
 
   geralt = new Player[1];
 
   typeInvMessage = "Inventory";
+
+  menuMessages.push_back(typeInvMessage);
   invMessage.setText("");
 
-  string sentence = typeInvMessage; //"word1 and word2 and then word3 and so on lots of words long words quite long spectacular discriminatory 123 a";
-
+  string sentence = typeInvMessage;
   string word;
 
   for(int i = 0; i < sentence.size(); i++)
@@ -82,7 +92,6 @@ void InventoryScene::checkInput()
 
                 break;
 
-
                 case SDLK_DOWN:
 
                 inventorySelected++;
@@ -122,18 +131,8 @@ void InventoryScene::render(SDL_Renderer* Renderer)
   // if(typePos < typeInvMessage.size() + 20)
   if((invMessage.getText()).size() < letters.size())
     {
-      // typePos++;
-
       string pause = "";
-      // string nextWord = "word";
-      string nextWord;
 
-      nextWord = "aaa";
-
-      int r = rand() % 2;
-
-      // if(r == 1)
-        // pause = " ";
       if(typePos >= 4)
         {
           // pause = " ";
@@ -141,7 +140,6 @@ void InventoryScene::render(SDL_Renderer* Renderer)
         }
       if(typeRowPos >= 10)
         {
-        
           // pause = " ";
           typeRowPos = 0;
         }
@@ -153,21 +151,45 @@ void InventoryScene::render(SDL_Renderer* Renderer)
       typeRowPos++;
 
       // cout << "TEXT: " << invMessage.getText() << endl;
-
     }
 
-  if(inventorySelected > 1)
+  if(inventorySelected > 2)
     inventorySelected = 0;
 
-  if(inventorySelected == 1)
-   invMessage.setColor(70, 0, 68);
-  else
-    invMessage.setColor(255, 255, 255);
+  optionsMessage[0].setColor(255, 255, 255);
+  optionsMessage[1].setColor(255, 255, 255);
+  invMessage.setColor(255, 255, 255);
+
+
+  if(inventorySelected == 0)
+   {
+    menuOptions = inventoryOption;
+     invMessage.setColor(78, 64, 78);
+   }
+
+   for(int i = 1; i < 3; i++)
+    if(inventorySelected == i)
+      optionsMessage[i - 1].setColor(78, 64, 78);
+
+
+  for(int i = 0; i < 2; i++)
+  {
+    // if(menuOptions != i)
+    // if(i != inventorySelected)
+      // optionsMessage[i].setColor(255, 255, 255);
+  }
+
 
   invMessage.setText(invMessage.getText(), "fonts/witcherfont.ttf", 30, Renderer, "blended", 360);// typeInvMessage.at(typePos));
+  optionsMessage[0].setText(optionsMessage[0].getText(), "fonts/witcherfont.ttf", 30, Renderer, "blended", 360);
+  optionsMessage[1].setText(optionsMessage[1].getText(), "fonts/witcherfont.ttf", 30, Renderer, "blended", 360);
+
 
 
   invMessage.display(250, 150, 300, 300, Renderer, "blended");
+  optionsMessage[0].display(250, 200, 300, 300, Renderer, "blended");
+  optionsMessage[1].display(250, 250, 300, 300, Renderer, "blended");
+
 
   SDL_RenderPresent(Renderer);
 
@@ -219,10 +241,10 @@ void InventoryScene::free()
   invMessage.clearText();
   words.clear();
   letters.clear();
-
   geralt[0].Free();
   
   delete [] geralt;
 
+  inventorySelected = 0;
   typePos = 0;
 }

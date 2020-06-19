@@ -14,7 +14,9 @@ class InventoryScene
   bool isOpen = false;
   bool invSet = false;
   Message invMessage;
+  Message* optionsMessage;
   string typeInvMessage;
+  vector<string> menuMessages;
 
   vector<string> words;
   vector<string> letters;
@@ -22,8 +24,16 @@ class InventoryScene
   int typePos = 0;
   int fontSize = 30;
   int typeRowPos = 0;
-
   int inventorySelected = 0;
+  int optionsNo = 3;
+
+  enum menuOptions
+  {
+    inventoryOption,
+    statsOption
+  };
+
+  menuOptions menuOptions;
 
   Player* geralt;
   
