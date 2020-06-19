@@ -91,7 +91,13 @@ void InventoryScene::checkInput()
                 InventoryScene_running = false;
 
                 break;
+                
+                case SDLK_UP:
 
+                inventorySelected--;
+
+                break;
+                
                 case SDLK_DOWN:
 
                 inventorySelected++;
@@ -155,12 +161,17 @@ void InventoryScene::render(SDL_Renderer* Renderer)
 
   if(inventorySelected > 2)
     inventorySelected = 0;
+  if(inventorySelected < 0)
+    inventorySelected = 2;
 
   optionsMessage[0].setColor(255, 255, 255);
   optionsMessage[1].setColor(255, 255, 255);
   invMessage.setColor(255, 255, 255);
 
+  int x, y;
 
+  SDL_GetMouseState(&x, &y);
+  
   if(inventorySelected == 0)
    {
     menuOptions = inventoryOption;
