@@ -171,7 +171,7 @@ void InventoryScene::render(SDL_Renderer* Renderer)
   int x, y;
 
   SDL_GetMouseState(&x, &y);
-  
+
   if(inventorySelected == 0)
    {
     menuOptions = inventoryOption;

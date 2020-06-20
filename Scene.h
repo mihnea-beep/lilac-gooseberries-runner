@@ -27,6 +27,7 @@ class Scene
   bool jumpDecrease = false;
 
   vector<Rect>obstacles;
+  Rect healthBar;
 
   int tick = 0;
 

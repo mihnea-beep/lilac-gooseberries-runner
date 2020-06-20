@@ -197,6 +197,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
     stars[i].y = rand() % 300; 
   }
 
+  healthBar.setDim(20, 50, 100, 30);
+
 
   outputFile << IMG_GetError() << endl;
 
@@ -654,9 +656,7 @@ void Scene::render(SDL_Renderer* Renderer)
   for(int i = 0; i < powerupsNo; i++)
     {
       draw(powerups[i], Renderer);
-    }
-
-  
+    }  
 
     if(gwentCardSpawned)
       {
