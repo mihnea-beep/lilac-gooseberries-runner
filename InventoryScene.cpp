@@ -18,7 +18,9 @@ void InventoryScene::loadRes(SDL_Renderer* Renderer)
 
   optionsMessage[0].setColor(255, 255, 255);
   optionsMessage[0].setText("Character", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
-  optionsMessage[1].setText("Alchemy", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+  optionsMessage[1].setText("Signs", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+  // optionsMessage[2].setText("Shop", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
+
 
 
   // menuOptions = inventoryOption;

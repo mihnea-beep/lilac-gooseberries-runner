@@ -73,7 +73,7 @@ void PauseScene::checkInput()
             {
               switch(ev.key.keysym.sym)
               {
-                case SDLK_p:
+                case SDLK_o:
 
                 cout << "Unpaused!" << endl;
 

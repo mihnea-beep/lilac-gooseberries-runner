@@ -1,21 +1,21 @@
-// #include "PauseScene.h"
+// #include "TextScene.h"
 #include "GUI.h"
-#include "PauseScene.h"
+#include "TextScene.h"
 #include "Message.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
 
-PauseScene::PauseScene()
+TextScene::TextScene()
 {
 
 }
 
-void PauseScene::loadRes(SDL_Renderer* Renderer)
+void TextScene::loadRes(SDL_Renderer* Renderer)
 {
-  pauseMessage.setColor(0, 0, 0);
+  pauseMessage.setColor(255, 255, 255);
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
-  randomFactMessage.setColor(0, 0, 0);
+  randomFactMessage.setColor(255, 255, 255);
 
   int factsNo = 15;
 
@@ -50,13 +50,13 @@ void PauseScene::loadRes(SDL_Renderer* Renderer)
 
 }
 
-void PauseScene::Init(SDL_Renderer* Renderer)
+void TextScene::Init(SDL_Renderer* Renderer)
 {
     loadRes(Renderer);
 }
 
 
-void PauseScene::checkInput()
+void TextScene::checkInput()
 {
 
   SDL_Event ev;
@@ -66,7 +66,7 @@ void PauseScene::checkInput()
           if(ev.type == SDL_QUIT)
              {
                  cout<<"User pressed 'exit'!";
-                 PauseScene_running = false;
+                 TextScene_running = false;
              }
 
             if(ev.type == SDL_KEYDOWN)
@@ -77,7 +77,7 @@ void PauseScene::checkInput()
 
                 cout << "Unpaused!" << endl;
 
-                PauseScene_running = false;
+                TextScene_running = false;
 
                 break;
                 
@@ -85,7 +85,7 @@ void PauseScene::checkInput()
 
                 cout<<"User pressed 'escape'!";
 
-                PauseScene_running = false;
+                TextScene_running = false;
 
                 break;
 
@@ -98,18 +98,21 @@ void PauseScene::checkInput()
 
 }
 
-void PauseScene::update()
+void TextScene::update()
 {
 
 }
 
-void PauseScene::render(SDL_Renderer* Renderer)
+void TextScene::render(SDL_Renderer* Renderer)
 {
   // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
   // SDL_RenderClear(Renderer);
 
   if(!pauseMessageSet)
   {
+    SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+    SDL_RenderClear(Renderer);
+
     pauseMessage.display(320 - 248, 200, 400, 60, Renderer, "blended");
     randomFactMessage.display(10, 300, 630, 30, Renderer, "blended");
 
@@ -120,9 +123,9 @@ void PauseScene::render(SDL_Renderer* Renderer)
 
 }
 
-void PauseScene::loop(SDL_Renderer* Renderer)
+void TextScene::loop(SDL_Renderer* Renderer)
 {
-  while(PauseScene_running)
+  while(TextScene_running)
   {
      //time
     checkInput();
@@ -135,34 +138,34 @@ void PauseScene::loop(SDL_Renderer* Renderer)
   free();
 }
 
-void PauseScene::loadPauseScene(SDL_Renderer* Renderer)
+void TextScene::loadTextScene(SDL_Renderer* Renderer)
 {
     loadRes(Renderer);
     loop(Renderer);
 }
 
-PauseScene::~PauseScene()
+TextScene::~TextScene()
 {
 
 }
 
-bool PauseScene::getRunning()
+bool TextScene::getRunning()
 {
-  return PauseScene_running;
+  return TextScene_running;
 }
 
-void PauseScene::setRunning(bool x)
+void TextScene::setRunning(bool x)
 {
-  PauseScene_running = x;
+  TextScene_running = x;
 }
 
-void PauseScene::free()
+void TextScene::free()
 {
 
   // delete[] pauseMessage;
   pauseMessage.Free();
   // delete pauseMessage;
   pauseMessageSet = false;
-  PauseScene_running = false;
+  TextScene_running = false;
 
 }

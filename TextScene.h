@@ -8,9 +8,9 @@
 using namespace std;
 
 
-class PauseScene: public GameScene
+class TextScene: public GameScene
 {
-  bool PauseScene_running = false;
+  bool TextScene_running = false;
   Message pauseMessage;
   bool pauseMessageSet = false;
   Message randomFactMessage;
@@ -19,7 +19,7 @@ class PauseScene: public GameScene
 
   public:
 
-    PauseScene(); // interface maybe?
+    TextScene(); // interface maybe?
 
     virtual void loadRes(SDL_Renderer* Renderer);
     virtual void Init(SDL_Renderer* Renderer);
@@ -27,14 +27,14 @@ class PauseScene: public GameScene
     virtual void update();
     virtual void render(SDL_Renderer*);
     virtual void loop(SDL_Renderer* Renderer);
-    virtual void loadPauseScene(SDL_Renderer* Renderer);
+    virtual void loadTextScene(SDL_Renderer* Renderer);
 
     virtual void setRunning(bool);
     virtual bool getRunning();
 
     virtual void free();
 
-    virtual ~PauseScene();
+    virtual ~TextScene();
 
 
 };
