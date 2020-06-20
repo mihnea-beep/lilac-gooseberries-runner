@@ -28,5 +28,7 @@ To activate a sign, press 'A'.
 
 To pause/unpause the game, press 'P'.
 
+To access the in-game menu, press 'I' (inventory, alchemy, character stats, shop).
+
 **Walkthrough**: Collect power-ups (lilac, gooseberries, oils, potions and other special items) to gain points and be careful not to miss any Gwent cards! Avoid enemies by jumping over them, or jump on them to give them a taste of silver (boots).
 
