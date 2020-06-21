@@ -17,6 +17,9 @@ void TextScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
   randomFactMessage.setColor(255, 255, 255);
 
+  setMessagesNumber(1);
+  loadElement(Renderer, "hello", 200, 200, 100, 30, "fonts/witcherfont.ttf", 30);
+
   int factsNo = 15;
 
   int randomLine = rand() % factsNo;
@@ -103,10 +106,35 @@ void TextScene::update()
 
 }
 
+void TextScene::setMessagesNumber(int messagesNo)
+{
+  messagesList = new Message[messagesNo];
+}
+
+
+void TextScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize)
+{
+  messagesList[0].setColor(255, 255, 255);
+  messagesList[0].setText("messageText", font, fontSize, Renderer, "blended", 640);
+}
+
 void TextScene::render(SDL_Renderer* Renderer)
 {
   // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
   // SDL_RenderClear(Renderer);
+
+  pauseMessageSet = true;
+
+  SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 0);
+
+  SDL_RenderClear(Renderer);
+
+  for(int i = 0; i < 1; i++)
+  {
+    messagesList[i].display(10, 300, 630, 30, Renderer, "blended");
+  }
+
+  SDL_RenderPresent(Renderer);
 
   if(!pauseMessageSet)
   {

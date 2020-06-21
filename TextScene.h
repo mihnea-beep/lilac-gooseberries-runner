@@ -17,6 +17,8 @@ class TextScene: public GameScene
   string typeRandomFactMessage;
   int typePos = 0;
 
+  Message* messagesList;
+
   public:
 
     TextScene(); // interface maybe?
@@ -28,6 +30,8 @@ class TextScene: public GameScene
     virtual void render(SDL_Renderer*);
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadTextScene(SDL_Renderer* Renderer);
+    virtual void loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize);
+    virtual void setMessagesNumber(int messagesNo);
 
     virtual void setRunning(bool);
     virtual bool getRunning();
