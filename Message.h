@@ -37,6 +37,10 @@ public:
     void setText(string text);
     string getText();
     void clearText();
+    void setX(int x);
+    void setY(int y);
+    int getY();
+    int getX();
 
     TTF_Font* getFont();
     SDL_Texture* getTexture();

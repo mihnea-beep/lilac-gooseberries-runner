@@ -135,6 +135,24 @@ void Message::Free()
 	//	TTF_CloseFont(msg_font);
 }
 
+void Message::setX(int x)
+{
+    msgRc.x = x;
+}
+void Message::setY(int y)
+{
+    msgRc.y = y;
+}
+int Message::getY()
+{
+    return msgRc.y;
+}
+int Message::getX()
+{
+    return msgRc.x;
+}
+
+
 void Message::display(int x, int y, int w, int h, SDL_Renderer* renderer, string mode)
 {
     msgRc.x = x;

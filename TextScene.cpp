@@ -17,8 +17,16 @@ void TextScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
   randomFactMessage.setColor(255, 255, 255);
 
-  setMessagesNumber(1);
-  loadElement(Renderer, "hello", 200, 200, 100, 30, "fonts/witcherfont.ttf", 30);
+  setMessagesNumber(4);
+
+  messagesNo = 4;
+
+  loadElement(Renderer, "Health: ?/100", 30, 30, 100, 30, "fonts/witcherfont.ttf", 30, 0);
+  loadElement(Renderer, "Stamina: ?/100", 30, 80, 100, 30, "fonts/witcherfont.ttf", 30, 1);
+  loadElement(Renderer, "Jumps: unlimited", 30, 130, 100, 30, "fonts/witcherfont.ttf", 30, 2);
+  loadElement(Renderer, "Adrenaline: ?/?", 30, 180, 100, 30, "fonts/witcherfont.ttf", 30, 3);
+
+
 
   int factsNo = 15;
 
@@ -108,14 +116,18 @@ void TextScene::update()
 
 void TextScene::setMessagesNumber(int messagesNo)
 {
-  messagesList = new Message[messagesNo];
+  this->messagesNo = messagesNo;
+  messagesList = new Message[this->messagesNo];
 }
 
 
-void TextScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize)
+void TextScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize, int elementIndex)
 {
-  messagesList[0].setColor(255, 255, 255);
-  messagesList[0].setText("messageText", font, fontSize, Renderer, "blended", 640);
+  messagesList[elementIndex].setColor(255, 255, 255);
+  messagesList[elementIndex].setText(messageText, font, fontSize, Renderer, "blended", 640);
+  messagesList[elementIndex].setX(x);
+  messagesList[elementIndex].setY(y);
+
 }
 
 void TextScene::render(SDL_Renderer* Renderer)
@@ -129,9 +141,9 @@ void TextScene::render(SDL_Renderer* Renderer)
 
   SDL_RenderClear(Renderer);
 
-  for(int i = 0; i < 1; i++)
+  for(int i = 0; i < messagesNo; i++)
   {
-    messagesList[i].display(10, 300, 630, 30, Renderer, "blended");
+    messagesList[i].display(messagesList[i].getX(), messagesList[i].getY(), 300, 630, Renderer, "blended");
   }
 
   SDL_RenderPresent(Renderer);
@@ -195,5 +207,9 @@ void TextScene::free()
   // delete pauseMessage;
   pauseMessageSet = false;
   TextScene_running = false;
+
+  for(int i = 0; i < messagesNo; i++)
+    messagesList[i].Free();
+  delete [] messagesList;
 
 }
