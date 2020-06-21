@@ -121,8 +121,8 @@ class Scene
   Message lilac;
   Message lilacAmount;
 
-  TextScene Pause;
-  PauseScene regularPause;
+  PauseScene Pause;
+  // PauseScene regularPause;
   
   InventoryScene Inventory;
 
@@ -140,8 +140,6 @@ class Scene
     virtual void loadScene(SDL_Renderer* Renderer);
     virtual void checkPause(SDL_Renderer* Renderer);
     virtual void checkInventory(SDL_Renderer* Renderer);
-    virtual void checkMenu(SDL_Renderer* Renderer);
-
 
     virtual void draw(Player& p, SDL_Renderer* Renderer);
 

@@ -5,6 +5,7 @@
 #include <vector>
 #include "GUI.h"
 #include "Player.h"
+#include "TextScene.h"
 using namespace std;
 
 
@@ -17,6 +18,9 @@ class InventoryScene
   Message* optionsMessage;
   string typeInvMessage;
   vector<string> menuMessages;
+  
+  TextScene characterStatsScene;
+
 
   vector<string> words;
   vector<string> letters;
@@ -26,6 +30,7 @@ class InventoryScene
   int typeRowPos = 0;
   int inventorySelected = 0;
   int optionsNo = 2;
+  bool selectOption = false;
 
   enum menuOptions
   {
@@ -52,6 +57,8 @@ class InventoryScene
     virtual void render(SDL_Renderer*);
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadInventoryScene(SDL_Renderer* Renderer);
+    virtual void checkMenu(SDL_Renderer* Renderer);
+
 
     virtual void setRunning(bool);
     virtual bool getRunning();

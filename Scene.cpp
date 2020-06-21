@@ -266,7 +266,7 @@ void Scene::checkInput()
 
                 cout << "Paused" << endl;
 
-                regularPause.setRunning(true);
+                // regularPause.setRunning(true);
 
                 break;
 
@@ -850,7 +850,7 @@ void Scene::loop(SDL_Renderer* Renderer)
 
       checkInventory(Renderer);
 
-      checkMenu(Renderer);
+      // checkMenu(Renderer);
 
       // cout << 1000 / 16 << endl << endl; 
     //time
@@ -877,18 +877,9 @@ void Scene::checkPause(SDL_Renderer* Renderer)
     // cout << "PAUSE" << endl; 
     // Pause.setRunning(true);
     if(Pause.getRunning() == true)
-     Pause.loadTextScene(Renderer);
+     Pause.loadPauseScene(Renderer);
   // }
 }
-
-void Scene::checkMenu(SDL_Renderer* Renderer)
-{
-
-    if(regularPause.getRunning() == true)
-     regularPause.loadPauseScene(Renderer);
-
-}
-
 
 void Scene::checkInventory(SDL_Renderer* Renderer)
 {

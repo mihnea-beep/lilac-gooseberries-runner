@@ -20,10 +20,10 @@ void InventoryScene::loadRes(SDL_Renderer* Renderer)
   optionsMessage[0].setText("Character", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
   optionsMessage[1].setText("Signs", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
   // optionsMessage[2].setText("Shop", "fonts/witcherfont.ttf", 30, Renderer, "blended", 640);
-
-
-
   // menuOptions = inventoryOption;
+
+  selectOption = false;
+
 
   geralt = new Player[1];
 
@@ -106,6 +106,14 @@ void InventoryScene::checkInput()
 
                 break;                
 
+                case SDLK_RETURN:
+
+                selectOption = true;
+
+                cout << "Option selected!" << endl;
+
+                break;
+                
                 case SDLK_ESCAPE:
 
                 cout<<"User pressed 'escape'!";
@@ -126,6 +134,12 @@ void InventoryScene::checkInput()
 void InventoryScene::update()
 {
 
+}
+
+void InventoryScene::checkMenu(SDL_Renderer* Renderer)
+{
+    if(characterStatsScene.getRunning() == true)
+     characterStatsScene.loadTextScene(Renderer);
 }
 
 void InventoryScene::render(SDL_Renderer* Renderer)
@@ -205,7 +219,15 @@ void InventoryScene::render(SDL_Renderer* Renderer)
 
 
   SDL_RenderPresent(Renderer);
-
+  
+  if(selectOption && inventorySelected == 1)
+    {
+      cout << "Character stats" << endl;
+      characterStatsScene.setRunning(true);
+      checkMenu(Renderer);
+    }
+    
+  selectOption = false;
 }
 
 void InventoryScene::loop(SDL_Renderer* Renderer)
@@ -219,7 +241,6 @@ void InventoryScene::loop(SDL_Renderer* Renderer)
 
     SDL_Delay(30);
     //time
-
   }
 
   free();
