@@ -220,12 +220,53 @@ void InventoryScene::render(SDL_Renderer* Renderer)
 
   SDL_RenderPresent(Renderer);
   
-  if(selectOption && inventorySelected == 1)
+  if(selectOption)
     {
-      cout << "Character stats" << endl;
-      characterStatsScene.setRunning(true);
-      checkMenu(Renderer);
+
+      if(inventorySelected == 0)
+        {
+          cout << "Inventory" << endl;
+  
+          characterStatsScene.setMessagesNumber(1);
+  
+          characterStatsScene.loadElement(Renderer, "Inventory", 250, 50, 100, 30, "fonts/witcherfont.ttf", 30, 0);
+          characterStatsScene.setRunning(true);
+          checkMenu(Renderer);
+        }
+
+
+      if(inventorySelected == 1)
+        {
+          cout << "Character stats" << endl;
+
+          characterStatsScene.setMessagesNumber(6);
+
+          characterStatsScene.loadElement(Renderer, "Health: ?/100", 30, 30, 100, 30, "fonts/witcherfont.ttf", 30, 0);
+          characterStatsScene.loadElement(Renderer, "Stamina: ?/100", 30, 80, 100, 30, "fonts/witcherfont.ttf", 30, 1);
+          characterStatsScene.loadElement(Renderer, "Jumps: unlimited", 30, 130, 100, 30, "fonts/witcherfont.ttf", 30, 2);
+          characterStatsScene.loadElement(Renderer, "Adrenaline: ?/?", 30, 180, 100, 30, "fonts/witcherfont.ttf", 30, 3);
+          characterStatsScene.loadElement(Renderer, "Level: ?", 30, 180 + 100, 100, 30, "fonts/witcherfont.ttf", 30, 4);
+          characterStatsScene.loadElement(Renderer, "Experience: ?/10", 30, 180 + 150, 100, 30, "fonts/witcherfont.ttf", 30, 5);
+
+          characterStatsScene.setRunning(true);
+          checkMenu(Renderer);
+        }
+
+      if(inventorySelected == 2)
+        {
+          cout << "Signs" << endl;
+  
+          characterStatsScene.setMessagesNumber(1);
+  
+          characterStatsScene.loadElement(Renderer, "Signs", 280, 50, 100, 30, "fonts/witcherfont.ttf", 30, 0);
+          characterStatsScene.setRunning(true);
+          checkMenu(Renderer);
+        }
+
+      
+
     }
+
     
   selectOption = false;
 }

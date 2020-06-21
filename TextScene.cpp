@@ -17,16 +17,7 @@ void TextScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
   randomFactMessage.setColor(255, 255, 255);
 
-  setMessagesNumber(6);
-
-  messagesNo = 6;
-
-  loadElement(Renderer, "Health: ?/100", 30, 30, 100, 30, "fonts/witcherfont.ttf", 30, 0);
-  loadElement(Renderer, "Stamina: ?/100", 30, 80, 100, 30, "fonts/witcherfont.ttf", 30, 1);
-  loadElement(Renderer, "Jumps: unlimited", 30, 130, 100, 30, "fonts/witcherfont.ttf", 30, 2);
-  loadElement(Renderer, "Adrenaline: ?/?", 30, 180, 100, 30, "fonts/witcherfont.ttf", 30, 3);
-  loadElement(Renderer, "Level: ?", 30, 180 + 100, 100, 30, "fonts/witcherfont.ttf", 30, 4);
-  loadElement(Renderer, "Experience: ?/10", 30, 180 + 150, 100, 30, "fonts/witcherfont.ttf", 30, 5);
+  // messagesNo = 6;
 
   int factsNo = 15;
 
@@ -210,5 +201,7 @@ void TextScene::free()
   for(int i = 0; i < messagesNo; i++)
     messagesList[i].Free();
   delete [] messagesList;
+
+  messagesNo = 0;
 
 }
