@@ -25,7 +25,8 @@ int main(int argc, char const *argv[])
     // Renderer = SDL_CreateRenderer(Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
 
     Scene soundScene;
-    
+
+    soundScene.setWindow(window);
     soundScene.setRunning(true);
     soundScene.loadScene(renderer);
 

@@ -202,6 +202,8 @@ void Scene::loadRes(SDL_Renderer* Renderer)
 
   outputFile << IMG_GetError() << endl;
 
+  // menuActive = true;
+
 
 }
 
@@ -248,8 +250,14 @@ void Scene::checkInput()
 
                 flags[0] = true;
 
+                // menuActive = true;
+
+                cout << "Menu" << endl;
+                Menu.setRunning(true);
+
                 break;
 
+                
                 case SDLK_SPACE:
 
                 case SDLK_UP:
@@ -812,6 +820,8 @@ void Scene::loop(SDL_Renderer* Renderer)
   while(scene_running)
   {
      //time
+
+    
     time1 = SDL_GetTicks();
 
    // cout << "FPS:" << time1 / tick;
@@ -850,6 +860,9 @@ void Scene::loop(SDL_Renderer* Renderer)
 
       checkInventory(Renderer);
 
+    checkMenu(Renderer);
+
+
       // checkMenu(Renderer);
 
       // cout << 1000 / 16 << endl << endl; 
@@ -862,8 +875,14 @@ void Scene::loop(SDL_Renderer* Renderer)
 void Scene::loadScene(SDL_Renderer* Renderer)
 {
 
-    loadRes(Renderer);
-    loop(Renderer);
+    Menu.setWindow(getWindow());
+    Menu.setRunning(true);
+    checkMenu(Renderer);
+    if(getRunning())
+      {
+        loadRes(Renderer);
+        loop(Renderer);
+      }
 }
 
 void Scene::checkPause(SDL_Renderer* Renderer)
@@ -885,6 +904,17 @@ void Scene::checkInventory(SDL_Renderer* Renderer)
 {
   if(Inventory.getRunning())
     Inventory.loadInventoryScene(Renderer);
+}
+
+void Scene::checkMenu(SDL_Renderer* Renderer)
+{
+  if(Menu.getRunning())
+    Menu.loadMenuScene(Renderer);
+  if(Menu.getExit())
+    scene_running = false;
+    // cout << "AAAA" << endl;
+  // Menu.setRunning(false);
+
 }
 
 void Scene::animate(Player& p, int frames_no, string frame_name, SDL_Renderer* Renderer)
@@ -936,5 +966,5 @@ void Scene::setRunning(bool x)
 
 void Scene::free()
 {
-
+  GameScene::free();
 }

@@ -10,6 +10,8 @@ using namespace std;
 class GameScene
 {
   bool GameScene_running = false;
+  SDL_Window* sceneWindow = NULL;
+
 
   public:
 
@@ -22,6 +24,11 @@ class GameScene
     virtual void render(SDL_Renderer*);
     virtual void loop(SDL_Renderer* Renderer);
     virtual void loadGameScene(SDL_Renderer* Renderer);
+    
+    virtual SDL_Window* getWindow();
+    virtual void setWindow(SDL_Window* window);
+
+
 
     virtual void setRunning(bool);
     virtual bool getRunning();

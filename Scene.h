@@ -11,10 +11,12 @@
 #include "PauseScene.h"
 #include "InventoryScene.h"
 #include "TextScene.h"
+#include "MenuScene.h"
+#include "GameScene.h"
 //#include "GUI.h"
 using namespace std;
 
-class Scene
+class Scene: public GameScene
 {
   bool scene_running = false;
   bool flags[10];
@@ -85,6 +87,7 @@ class Scene
   bool landed = false;
   bool gwentCardSpawned = false;
   bool gwentCardSet = false;
+  bool menuActive = false;
 
   Rect quenShield;
   vector<Player> characters;
@@ -126,6 +129,8 @@ class Scene
   
   InventoryScene Inventory;
 
+  MenuScene Menu;
+
 
   public:
 
@@ -140,7 +145,7 @@ class Scene
     virtual void loadScene(SDL_Renderer* Renderer);
     virtual void checkPause(SDL_Renderer* Renderer);
     virtual void checkInventory(SDL_Renderer* Renderer);
-
+    virtual void checkMenu(SDL_Renderer* Renderer);
     virtual void draw(Player& p, SDL_Renderer* Renderer);
 
     virtual void animate(Player&p, int frames_no, string frame_name, SDL_Renderer* Renderer);

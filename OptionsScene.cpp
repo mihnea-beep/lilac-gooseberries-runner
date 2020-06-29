@@ -1,17 +1,17 @@
-// #include "TextScene.h"
+// #include "OptionsScene.h"
 #include "GUI.h"
-#include "TextScene.h"
+#include "OptionsScene.h"
 #include "Message.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
 
-TextScene::TextScene()
+OptionsScene::OptionsScene()
 {
 
 }
 
-void TextScene::loadRes(SDL_Renderer* Renderer)
+void OptionsScene::loadRes(SDL_Renderer* Renderer)
 {
   pauseMessage.setColor(255, 255, 255);
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
@@ -52,12 +52,12 @@ void TextScene::loadRes(SDL_Renderer* Renderer)
 
 }
 
-void TextScene::Init(SDL_Renderer* Renderer)
+void OptionsScene::Init(SDL_Renderer* Renderer)
 {
     loadRes(Renderer);
 }
 
-void TextScene::checkInput()
+void OptionsScene::checkInput()
 {
 
   SDL_Event ev;
@@ -67,19 +67,31 @@ void TextScene::checkInput()
           if(ev.type == SDL_QUIT)
              {
                  cout<<"User pressed 'exit'!";
-                 TextScene_running = false;
+                 OptionsScene_running = false;
              }
 
             if(ev.type == SDL_KEYDOWN)
             {
               switch(ev.key.keysym.sym)
               {
+                case SDLK_f:
+
+                cout << "Fullscreen toggled" << endl;
+
+                fullscreenToggle = true;
+
+                if(!fullscreenMode)
+                  fullscreenMode = true;
+                else
+                {
+                  fullscreenMode = false;
+                }
                 
                 case SDLK_p:
 
                 cout << "Unpaused!" << endl;
 
-                TextScene_running = false;
+                OptionsScene_running = false;
 
                 break;
                 
@@ -87,7 +99,7 @@ void TextScene::checkInput()
 
                 cout<<"User pressed 'escape'!";
 
-                TextScene_running = false;
+                OptionsScene_running = false;
 
                 break;
 
@@ -100,19 +112,28 @@ void TextScene::checkInput()
 
 }
 
-void TextScene::update()
+void OptionsScene::update()
 {
+  if(fullscreenToggle)
+    if(fullscreenMode)
+      SDL_SetWindowFullscreen(getWindow(), SDL_WINDOW_FULLSCREEN);
+    else
+      SDL_SetWindowFullscreen(getWindow(), 0);
+  else
+  {
+    fullscreenToggle = false;
+  }
 
 }
 
-void TextScene::setMessagesNumber(int messagesNo)
+void OptionsScene::setMessagesNumber(int messagesNo)
 {
   this->messagesNo = messagesNo;
   messagesList = new Message[this->messagesNo];
 }
 
 
-void TextScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize, int elementIndex)
+void OptionsScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize, int elementIndex)
 {
   messagesList[elementIndex].setColor(255, 255, 255);
   messagesList[elementIndex].setText(messageText, font, fontSize, Renderer, "blended", 640);
@@ -121,7 +142,7 @@ void TextScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, i
 
 }
 
-void TextScene::render(SDL_Renderer* Renderer)
+void OptionsScene::render(SDL_Renderer* Renderer)
 {
   // SDL_SetRenderDrawColor(Renderer, 0, 80, 100, 100);
   // SDL_RenderClear(Renderer);
@@ -154,9 +175,9 @@ void TextScene::render(SDL_Renderer* Renderer)
 
 }
 
-void TextScene::loop(SDL_Renderer* Renderer)
+void OptionsScene::loop(SDL_Renderer* Renderer)
 {
-  while(TextScene_running)
+  while(OptionsScene_running)
   {
      //time
     checkInput();
@@ -169,35 +190,35 @@ void TextScene::loop(SDL_Renderer* Renderer)
   free();
 }
 
-void TextScene::loadTextScene(SDL_Renderer* Renderer)
+void OptionsScene::loadOptionsScene(SDL_Renderer* Renderer)
 {
     loadRes(Renderer);
     loop(Renderer);
 }
 
-TextScene::~TextScene()
+OptionsScene::~OptionsScene()
 {
 
 }
 
-bool TextScene::getRunning()
+bool OptionsScene::getRunning()
 {
-  return TextScene_running;
+  return OptionsScene_running;
 }
 
-void TextScene::setRunning(bool x)
+void OptionsScene::setRunning(bool x)
 {
-  TextScene_running = x;
+  OptionsScene_running = x;
 }
 
-void TextScene::free()
+void OptionsScene::free()
 {
 
   // delete[] pauseMessage;
   pauseMessage.Free();
   // delete pauseMessage;
   pauseMessageSet = false;
-  TextScene_running = false;
+  OptionsScene_running = false;
 
   for(int i = 0; i < messagesNo; i++)
     messagesList[i].Free();

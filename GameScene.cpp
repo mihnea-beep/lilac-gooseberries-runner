@@ -16,6 +16,15 @@ void GameScene::Init(SDL_Renderer* Renderer)
     loadRes(Renderer);
 }
 
+SDL_Window* GameScene::getWindow()
+{
+  return sceneWindow;
+}
+
+void GameScene::setWindow(SDL_Window* window)
+{
+  this->sceneWindow = window;
+}
 
 void GameScene::checkInput()
 {
@@ -104,5 +113,7 @@ void GameScene::setRunning(bool x)
 
 void GameScene::free()
 {
+  if(sceneWindow != NULL)
+    SDL_DestroyWindow(sceneWindow);
 
 }
