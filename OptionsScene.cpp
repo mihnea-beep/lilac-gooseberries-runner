@@ -17,6 +17,24 @@ void OptionsScene::loadRes(SDL_Renderer* Renderer)
   pauseMessage.setText("Game Paused - Meditating", "fonts/witcherfont.ttf", 40, Renderer, "blended");
   randomFactMessage.setColor(255, 255, 255);
 
+  optionsNo = 2;
+  optionsList = new int[optionsNo];
+
+  setMessagesNumber(5);
+
+  loadElement(Renderer, "Options", 250, 50, 100, 30, "fonts/witcherfont.ttf", 30, 0);
+  loadElement(Renderer, "Fullscreen", 250, 250, 100, 30, "fonts/witcherfont.ttf", 30, 1);
+  loadElement(Renderer, "Fullscreen", 250, 250, 100, 30, "fonts/witcherfont.ttf", 30, 2, 78, 64, 78);
+  loadElement(Renderer, "How to play", 250, 350, 100, 30, "fonts/witcherfont.ttf", 30, 3);
+  loadElement(Renderer, "How to play", 250, 350, 100, 30, "fonts/witcherfont.ttf", 30, 4, 78, 64, 78);
+
+
+  messagesList[2].setVisible(false);
+  messagesList[4].setVisible(false);
+
+
+  // setElementColor(2, 78, 64, 78);
+
   // messagesNo = 6;
 
   int factsNo = 15;
@@ -74,6 +92,18 @@ void OptionsScene::checkInput()
             {
               switch(ev.key.keysym.sym)
               {
+                case SDLK_DOWN:
+
+                selectedOption++;
+
+                break;
+
+                case SDLK_RETURN:
+
+                optionSelected = true;
+
+                break;
+                
                 case SDLK_f:
 
                 cout << "Fullscreen toggled" << endl;
@@ -86,6 +116,8 @@ void OptionsScene::checkInput()
                 {
                   fullscreenMode = false;
                 }
+
+                break;
                 
                 case SDLK_p:
 
@@ -114,6 +146,50 @@ void OptionsScene::checkInput()
 
 void OptionsScene::update()
 {
+
+  if(selectedOption < 0)
+    selectedOption = 1;
+
+  if(selectedOption > 1)
+    selectedOption = 0;
+
+  if(selectedOption == 0)
+    {
+      messagesList[1].setVisible(false);
+      messagesList[4].setVisible(false);
+      messagesList[2].setVisible(true);
+
+    }
+
+  if(selectedOption == 1)
+  {
+    messagesList[1].setVisible(true);
+    messagesList[2].setVisible(false);
+    messagesList[3].setVisible(true);
+    messagesList[4].setVisible(true);
+  }
+
+  if(optionSelected)
+  {
+    cout << "Option selected!" << endl;
+
+    if(selectedOption == 0)
+    {
+      fullscreenToggle = true;
+
+      if(!fullscreenMode)
+        fullscreenMode = true;
+      else
+        {
+          fullscreenMode = false;
+        }
+
+    }
+
+
+    optionSelected = false;
+  }
+
   if(fullscreenToggle)
     if(fullscreenMode)
       SDL_SetWindowFullscreen(getWindow(), SDL_WINDOW_FULLSCREEN);
@@ -133,13 +209,18 @@ void OptionsScene::setMessagesNumber(int messagesNo)
 }
 
 
-void OptionsScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize, int elementIndex)
+void OptionsScene::loadElement(SDL_Renderer* Renderer, string messageText, int x, int y, int w, int h, string font, int fontSize, int elementIndex, int r, int g, int b)
 {
-  messagesList[elementIndex].setColor(255, 255, 255);
+  messagesList[elementIndex].setColor(r, g, b);
   messagesList[elementIndex].setText(messageText, font, fontSize, Renderer, "blended", 640);
   messagesList[elementIndex].setX(x);
   messagesList[elementIndex].setY(y);
 
+}
+
+void OptionsScene::setElementColor(int elementIndex, int r, int g, int b)
+{
+  messagesList[elementIndex].setColor(r, g, b);
 }
 
 void OptionsScene::render(SDL_Renderer* Renderer)
@@ -155,7 +236,8 @@ void OptionsScene::render(SDL_Renderer* Renderer)
 
   for(int i = 0; i < messagesNo; i++)
   {
-    messagesList[i].display(messagesList[i].getX(), messagesList[i].getY(), 300, 630, Renderer, "blended");
+    if(messagesList[i].getVisible())
+      messagesList[i].display(messagesList[i].getX(), messagesList[i].getY(), 300, 630, Renderer, "blended");
   }
 
   SDL_RenderPresent(Renderer);
@@ -223,6 +305,9 @@ void OptionsScene::free()
   for(int i = 0; i < messagesNo; i++)
     messagesList[i].Free();
   delete [] messagesList;
+
+  if(optionsList != NULL)
+    delete [] optionsList;
 
   messagesNo = 0;
 

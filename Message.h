@@ -24,6 +24,8 @@ protected:
 
     string messageText;
 
+    bool isVisible = true;
+
 public:
 
     Message();
@@ -41,6 +43,9 @@ public:
     void setY(int y);
     int getY();
     int getX();
+
+    void setVisible(bool visible);
+    bool getVisible();
 
     TTF_Font* getFont();
     SDL_Texture* getTexture();

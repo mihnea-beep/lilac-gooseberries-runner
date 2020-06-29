@@ -152,6 +152,15 @@ int Message::getX()
     return msgRc.x;
 }
 
+void Message::setVisible(bool visible)
+{
+    isVisible = visible;
+}
+
+bool Message::getVisible()
+{
+    return isVisible;
+}
 
 void Message::display(int x, int y, int w, int h, SDL_Renderer* renderer, string mode)
 {

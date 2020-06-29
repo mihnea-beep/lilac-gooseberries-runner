@@ -240,11 +240,7 @@ void MenuScene::render(SDL_Renderer* Renderer)
       if(inventorySelected == 1)
         {
           cout << "Options" << endl;
-
-          Options.setMessagesNumber(1);
-
-          Options.loadElement(Renderer, "Options", 250, 50, 100, 30, "fonts/witcherfont.ttf", 30, 0);
-
+          
           Options.setWindow(getWindow());
 
           // Options.loadElement(Renderer, "Options", 30, 30, 100, 30, "fonts/witcherfont.ttf", 30, 0);
